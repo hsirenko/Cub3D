@@ -6,7 +6,7 @@
 /*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:04:32 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/09/16 18:52:00 by helensirenk      ###   ########.fr       */
+/*   Updated: 2024/09/24 12:05:50 by helensirenk      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,31 +21,31 @@
 //     *(unsigned int *)dst = color;
 // }
 
-static void	draw_ceiling_and_floor(t_game *game)
-{
-	unsigned int	*dst;
-	unsigned int	i;
+// static void	draw_ceiling_and_floor(t_game *game)
+// {
+// 	unsigned int	*dst;
+// 	unsigned int	i;
 
-	dst = (unsigned int *) game->img.addr;
-	i = SCREEN_WIDTH * SCREEN_HEIGHT / 2 + 1;
-	while (--i > 0)
-		*dst++ = game->color_ceiling;
-	i = SCREEN_WIDTH * SCREEN_HEIGHT / 2 + 1;
-	while (--i > 0)
-		*dst++ = game->color_floor;
-}
+// 	dst = (unsigned int *) game->img.addr;
+// 	i = SCREEN_WIDTH * SCREEN_HEIGHT / 2 + 1;
+// 	while (--i > 0)
+// 		*dst++ = game->color_ceiling;
+// 	i = SCREEN_WIDTH * SCREEN_HEIGHT / 2 + 1;
+// 	while (--i > 0)
+// 		*dst++ = game->color_floor;
+// }
 
-static void    init_struct_game(t_game *game)
-{
-    game->color_ceiling = BLUE;
-    game->color_floor = PSYCHEDELIC_CYAN;
-}
+// static void    init_struct_game(t_game *game)
+// {
+//     game->color_ceiling = BLUE;
+//     game->color_floor = PSYCHEDELIC_CYAN;
+// }
 
 int main() //(int **argc, char **argv)
 {
     //t_img  *img;
     t_game  *game;
-    void *mlx_win;
+   void *mlx_win;
 
     game = malloc(sizeof(t_game));
 
@@ -59,3 +59,4 @@ int main() //(int **argc, char **argv)
     mlx_put_image_to_window(game->mlx, mlx_win, game->img.img, 0, 0);
     mlx_loop(game->mlx);
 }
+
