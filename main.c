@@ -6,40 +6,12 @@
 /*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:04:32 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/09/24 12:05:50 by helensirenk      ###   ########.fr       */
+/*   Updated: 2024/09/24 15:00:06 by helensirenk      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-// void    my_mlx_pixel_put(t_img *img, int x, int y, int color)
-// {
-//     char *dst;
-
-//     dst = img->addr + (y * img->line_length + x * (img->bpp / 8));
-
-//     *(unsigned int *)dst = color;
-// }
-
-// static void	draw_ceiling_and_floor(t_game *game)
-// {
-// 	unsigned int	*dst;
-// 	unsigned int	i;
-
-// 	dst = (unsigned int *) game->img.addr;
-// 	i = SCREEN_WIDTH * SCREEN_HEIGHT / 2 + 1;
-// 	while (--i > 0)
-// 		*dst++ = game->color_ceiling;
-// 	i = SCREEN_WIDTH * SCREEN_HEIGHT / 2 + 1;
-// 	while (--i > 0)
-// 		*dst++ = game->color_floor;
-// }
-
-// static void    init_struct_game(t_game *game)
-// {
-//     game->color_ceiling = BLUE;
-//     game->color_floor = PSYCHEDELIC_CYAN;
-// }
 
 int main() //(int **argc, char **argv)
 {
