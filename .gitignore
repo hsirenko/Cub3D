@@ -1,3 +1,5 @@
 *.o
 *.dSYM
 cub3D
+*.a
+.vscode

@@ -6,7 +6,7 @@
 /*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:05:28 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/09/30 18:08:12 by kseniakarem      ###   ########.fr       */
+/*   Updated: 2024/09/30 18:44:04 by kseniakarem      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CUB3D_H
 
 # include "mlx.h"
+# include "libft.h"
 # include <math.h>
 # include <stdio.h>
 # include <unistd.h>
@@ -86,7 +87,7 @@ typedef struct s_game
 {
 	void		*mlx;
 	void		*win;
-	t_mapdata	*mapdata;
+	t_mapdata	mapdata;
 	int			color_floor;
 	int			color_ceiling;
 	t_img		img;
