@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+         #
+#    By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/29 16:17:53 by hsirenko          #+#    #+#              #
-#    Updated: 2024/09/16 16:18:36 by helensirenk      ###   ########.fr        #
+#    Updated: 2024/09/30 18:07:38 by kseniakarem      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,19 +25,19 @@ RM = rm -f
 
 #Compiler and linker flags
 CFLAGS = -g -Wall -Wextra -Werror
-LDLIBS = minilibx-linux #-lmlx_Linux #libraries to link
+LDLIBS = minilibx #-lmlx_Linux #libraries to link
 MINILIBX = libmlx.a
 LDFLAGS = -I$(LDLIBS) -lXext -lX11 -lm -lz #-Lminilibx-linux   #linker flags, which specify which directories to search for libraries
 #-l flag will automatically append the lib prefix and the .a extension.
 
 #Directories for header files
-INC_DIR =  -I/usr/include -Iminilibx-linux #-Iminilibx-linux #specifies the directories to search for header files using the -I flag. It includes the minilibx-linux directory for finding headers.
+INC_DIRS =  -I/usr/include -Iminilibx #-Iminilibx-linux #specifies the directories to search for header files using the -I flag. It includes the minilibx-linux directory for finding headers.
 
 #Targets
 all:	$(NAME) #This is the default target that gets built when you run make with no arguments. It depends on the $(NAME) target, which is my final executable.
 
 ${NAME}:	${OBJS}  #This section defines how to build my target ($(NAME)). It depends on $(OBJS)
-			@make -C minilibx-linux
+			@make -C minilibx
 			$(CC) $(CFLAGS) $(SRCS) $(MINLIBX) -o $(NAME) -L$(LDLIBS) -lmlx $(LDFLAGS)
 # $(CC) $(CFLAGS) $(INC_DIRS) $(LDFLAGS) $^ $(LDLIBS) -o $@ #The final line compiles and links the object files ($^) into the target executable ($@).
                                                                       # It includes compiler flags ($(CFLAGS)), library directories ($(LDFLAGS)), and libraries to link ($(LDLIBS)).
@@ -50,12 +50,11 @@ minilibx-linux:              #These rules indicate how to build the mlx_Linux li
 #It uses the compiler ($(CC)), compiler flags ($(CFLAGS)), include directories ($(INC_DIRS)), and input and output filenames ($< and $@, respectively).
 
 clean:                              #The clean target removes object files ($(OBJS)) using the $(RM) command
-			make clean -C minilibx-linux
+			make clean -C minilibx
 
 			${RM} ${OBJS}
 
 fclean: clean                       #The fclean target depends on clean and additionally removes the final executable ($(NAME)) and cleans the minilibx-linux directory.
-			make fclean -C minilibx-linux
 			${RM} $(NAME)
 			${RM} $(MINILIBX)
 

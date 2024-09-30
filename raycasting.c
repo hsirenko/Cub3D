@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
+/*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 10:39:23 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/09/24 15:00:26 by helensirenk      ###   ########.fr       */
+/*   Updated: 2024/09/30 18:07:03 by kseniakarem      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static int	hit_the_wall(float x, float y, t_game *game)
+int	hit_the_wall(float x, float y, t_game *game)
 {
 	int	map_y;
 	int	map_x;
@@ -82,7 +82,7 @@ static float	get_vert_inters(t_game *game, float angle)
 {
 	int		direction;
 	float	vert_x;
-	float	vert_y;
+	float	vert_y = 0;
 	float	step_x;
 	float	step_y;
 

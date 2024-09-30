@@ -3,21 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
+/*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:05:28 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/09/24 12:07:55 by helensirenk      ###   ########.fr       */
+/*   Updated: 2024/09/30 18:08:12 by kseniakarem      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "minilibx-linux/mlx.h"
+# include "mlx.h"
 # include <math.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+#include <fcntl.h>
 
 # define MAP_WIDTH 24
 # define MAP_HEIGHT 24
@@ -49,7 +50,7 @@ typedef struct s_img
 	void	*img;
 	char	*addr;
 	int		bpp;
-	int		ine_length;
+	int		line_length;
 	int		endian;
 
 }	t_img;
@@ -100,5 +101,9 @@ int		hit_the_wall(float x, float y, t_game *game);
 size_t	ft_strlen(const char *str);
 int		unit_circle(float angle, char c);
 float	normalz_angle(float angle);
+
+// parsing
+void init_struct_game(t_game *game, char * file_name);
+void draw_ceiling_and_floor(t_game* game);
 
 #endif
