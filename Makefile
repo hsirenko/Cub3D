@@ -6,7 +6,7 @@
 #    By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/29 16:17:53 by hsirenko          #+#    #+#              #
-#    Updated: 2024/09/30 18:07:38 by kseniakarem      ###   ########.fr        #
+#    Updated: 2024/09/30 18:14:01 by kseniakarem      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,9 @@ fclean: clean                       #The fclean target depends on clean and addi
 			${RM} $(MINILIBX)
 
 re: 		fclean all              #The re (rebuild) target first runs make fclean to clean everything, and then it runs make all to rebuild the project from scratch.
+
+test: $(NAME)
+	./$(NAME) ./map/subject_map.cub
 
 .PHONY:		all clean fclean re
 

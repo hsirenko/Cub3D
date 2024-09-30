@@ -14,5 +14,5 @@ void init_struct_game(t_game *game, char * file_name)
         panic("could not open file");
     }
 
-
+    
 }
