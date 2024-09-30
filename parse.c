@@ -8,18 +8,18 @@ void panic(char* msg) {
 
 char *read_file(int fd)
 {
-    int capacity = 1024;
+    int capacity = 12;
     int length = 0;
-    char *str = ft_calloc(capacity, sizeof(char));
+    char *str = ft_calloc(capacity, sizeof(char) + 1);
 
     while(1) {
-        int bytes_read = read(fd, str, capacity - length - 1);
-        if (bytes_read) {
+        int bytes_read = read(fd, &str[length], capacity - length);
+        if (!bytes_read) {
             return str;
         }
         length += bytes_read;
-        if (length == capacity - 1) {
-            char* s = ft_calloc(capacity * 2, sizeof(char));
+        if (length == capacity) {
+            char* s = ft_calloc(capacity * 2 + 1, sizeof(char));
             ft_memcpy(s, str, capacity);
             capacity *= 2;
             str = s;
