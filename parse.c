@@ -8,12 +8,17 @@ void panic(char* msg) {
 
 char *read_file(int fd)
 {
-    int capacity = 12;
+    int capacity = 1024;
     int length = 0;
     char *str = ft_calloc(capacity, sizeof(char) + 1);
 
     while(1) {
         int bytes_read = read(fd, &str[length], capacity - length);
+        if (bytes_read < 0) {
+            free(str);
+            panic("read call failed");
+            return NULL;
+        }
         if (!bytes_read) {
             return str;
         }
@@ -22,6 +27,7 @@ char *read_file(int fd)
             char* s = ft_calloc(capacity * 2 + 1, sizeof(char));
             ft_memcpy(s, str, capacity);
             capacity *= 2;
+            free(str);
             str = s;
         }
     }
