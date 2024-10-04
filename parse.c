@@ -175,6 +175,130 @@ int get_colors(t_game* game, char **inp_string)
     return(1);
 }
 
+int get_map_height(char *inp_string)
+{
+    int h = 0;
+    while (*inp_string)
+    {
+        if(*inp_string=='\n')
+            h++;
+        inp_string++;
+    }
+    return(h+1);
+}
+
+int get_map_width(char *inp_string)
+{
+    int max_len=0;
+    while(*inp_string)
+    {
+        int len=0;
+        while((*inp_string!='\n') && (*inp_string))
+        {
+            len++;
+            inp_string++;
+        }
+        if (max_len < len)
+            max_len = len;
+        if (*inp_string)
+            inp_string++;
+    }
+    return(max_len);
+}
+
+int check(char c, char *str)
+{
+    while (*str)
+    {
+        if (*str == c)
+        return(1);
+        str++;
+    }
+    return(0);
+}
+
+int check_gamer(char gamer, int gamer_count)
+{
+    if (gamer_count != 1)
+    {
+        panic("insufficient amount of gamers");
+        return(0);
+    }
+    if (!check(gamer,"NSWE"))
+    {
+        panic("insuffifient gamer");
+        return(0);
+    }
+    return(1);
+}
+
+int fill_map(t_game *game, char* src)
+{
+    char gamer;
+    int gamer_count = 0;
+    int i=0;
+    int j=0;
+    int c = 0;
+
+    while(src[c])
+    {
+        if (src[c] == '\n')  {
+            i++;
+            j = 0;
+            c++;
+            continue;
+        }
+        if (src[c] == '1')
+            game->mapdata.map2d[i][j] = '1';
+        else 
+            game->mapdata.map2d[i][j] = '0';
+        
+        if (!check(src[c], " 01")) {
+            gamer_count++;
+            gamer = src[c];
+        }
+        j++;
+        c++;
+    }
+    if (!check_gamer(gamer, gamer_count))
+        return(0);
+    return(1); 
+}
+
+void print_map(t_game *game)
+{
+    int i=0;
+    while (i < game->mapdata.map_h)
+    {
+        int j=0;
+        while (j < game->mapdata.map_w)
+        {
+            printf("%c",game->mapdata.map2d[i][j]);
+            j++;
+        }
+
+        printf("\n");
+    i++;
+    }
+}
+
+int get_map(t_game *game, char **inp_string)
+{
+    if((*inp_string)[0]== '\n')
+    *inp_string = trim_str(1, *inp_string);
+    game->mapdata.map_h = get_map_height(*inp_string);
+    game->mapdata.map_w = get_map_width(*inp_string);
+    game->mapdata.map2d = ft_calloc(game->mapdata.map_h,sizeof(char*));
+    int i = 0;
+    while(i < game->mapdata.map_h) {
+        game->mapdata.map2d[i] = ft_calloc(game->mapdata.map_w, sizeof(char));
+        ft_memset(game->mapdata.map2d[i], '0', game->mapdata.map_w);
+        i++;
+    }
+    fill_map(game, *inp_string);
+    print_map(game);
+    return(1);
+}
 
 
 int parse(t_game* game, int fd) {
@@ -187,6 +311,11 @@ int parse(t_game* game, int fd) {
     if(!(get_colors(game,&inp_string)==1))
         {
         panic( "could not parse floor and ceiling colors");
+        return(0);
+    }
+    if(!(get_map(game,&inp_string)))
+    {
+        panic("could not get map or it's invalid");
         return(0);
     }
     return 1;

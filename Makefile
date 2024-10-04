@@ -1,7 +1,7 @@
 DEFAULT_GOAL := all
 
 NAME = cub3D
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g
 SRC = main.c parse.c raycasting.c utils.c
 OBJ = $(SRC:.c=.o)
 HEADER = $(NAME).h

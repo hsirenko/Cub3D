@@ -6,7 +6,7 @@
 /*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:05:28 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/02 16:28:50 by kseniakarem      ###   ########.fr       */
+/*   Updated: 2024/10/04 15:51:36 by kseniakarem      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ typedef struct s_mapdata
 }	t_mapdata;
 
 
-typedef struct s_pLayer
+typedef struct s_player
 {
 	int		player_x;
 	int		player_y;
