@@ -6,7 +6,7 @@
 /*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:05:28 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/04 15:51:36 by kseniakarem      ###   ########.fr       */
+/*   Updated: 2024/10/05 17:29:39 by kseniakarem      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct s_player
 {
 	int		player_x;
 	int		player_y;
+	char	start_orient;
 	double	angle;
 	float	fov_radians;
 }	t_player;
@@ -104,7 +105,7 @@ typedef struct s_game
 	int			color_floor;
 	int			color_ceiling;
 	t_img		img;
-	t_player	*player;
+	t_player	player;
 	t_ray		*ray;
 }	t_game;
 
@@ -114,7 +115,8 @@ int		hit_the_wall(float x, float y, t_game *game);
 //utils
 size_t	ft_strlen(const char *str);
 int		unit_circle(float angle, char c);
-float	normalz_angle(float angle);
+float	nor_angle(float angle);
+void my_mlx_pixel_put(t_img* img, int x, int y, int color);
 
 // parsing
 void init_struct_game(t_game *game, char * file_name);

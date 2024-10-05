@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
+/*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 10:53:44 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/09/24 12:06:36 by helensirenk      ###   ########.fr       */
+/*   Updated: 2024/10/05 17:18:34 by kseniakarem      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,11 @@ int	unit_circle(float angle, char c)
 	return (0);
 }
 
-float	normalz_angle(float angle)
+float nor_angle(float angle) // normalize the angle
 {
 	if (angle < 0)
-	{
-		angle += (M_PI * 2);
-	}
+		angle += (2 * M_PI);
 	if (angle > (2 * M_PI))
-	{
-		angle -= (M_PI * 2);
-	}
+		angle -= (2 * M_PI);
 	return (angle);
 }

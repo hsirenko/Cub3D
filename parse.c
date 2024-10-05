@@ -75,7 +75,7 @@ int parse_path(char* direction, char **inp_string, t_image* img)
     return(1);
 }
 
-int get_img( t_game* game, char **inp_string)
+int get_wall_img( t_game* game, char **inp_string)
 {
     int no = parse_path("NO ", inp_string, &game->mapdata.north_wall);
     if (!no)
@@ -256,12 +256,15 @@ int fill_map(t_game *game, char* src)
         if (!check(src[c], " 01")) {
             gamer_count++;
             gamer = src[c];
+            game->player.player_x = j;
+            game->player.player_y = i;
         }
         j++;
         c++;
     }
     if (!check_gamer(gamer, gamer_count))
         return(0);
+    game->player.start_orient = gamer;
     return(1); 
 }
 
@@ -303,7 +306,7 @@ int get_map(t_game *game, char **inp_string)
 
 int parse(t_game* game, int fd) {
     char *inp_string = read_file(fd);
-    if(!get_img(game, &inp_string))
+    if(!get_wall_img(game, &inp_string))
     {
         panic( "could not parse image paths");
         return(0);
