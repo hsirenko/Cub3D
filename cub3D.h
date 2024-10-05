@@ -6,7 +6,7 @@
 /*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:05:28 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/05 17:29:39 by kseniakarem      ###   ########.fr       */
+/*   Updated: 2024/10/05 19:13:33 by kseniakarem      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,6 @@ void my_mlx_pixel_put(t_img* img, int x, int y, int color);
 
 // parsing
 void init_struct_game(t_game *game, char * file_name);
-void draw_ceiling_and_floor(t_game* game);
+void draw_floor_ceiling(t_game *game, t_img* img);
 
 #endif

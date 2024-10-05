@@ -6,7 +6,7 @@
 /*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:04:32 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/05 17:32:19 by kseniakarem      ###   ########.fr       */
+/*   Updated: 2024/10/05 19:12:46 by kseniakarem      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,11 @@ int main(int argc, char **argv)
     game.win = mlx_new_window(game.mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "Cub3D");
     game.img.img = mlx_new_image(game.mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
     game.img.addr = mlx_get_data_addr(game.img.img, &game.img.bpp, &game.img.line_length, &game.img.endian);
-    my_mlx_pixel_put(&game.img, 5, 5, RED);
-    // draw_ceiling_and_floor(game);
+    
+    //my_mlx_pixel_put(&game.img, x, y, RED);
+
+
+    draw_floor_ceiling(&game,&game.img );
     mlx_put_image_to_window(game.mlx, game.win, game.img.img, 0, 0);
     mlx_loop(game.mlx);
     return 0;
