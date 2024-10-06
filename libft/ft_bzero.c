@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkaremin <kkaremin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 15:11:10 by kkaremin          #+#    #+#             */
-/*   Updated: 2023/01/19 15:19:42 by kkaremin         ###   ########.fr       */
+/*   Updated: 2024/10/06 16:29:50 by kseniakarem      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

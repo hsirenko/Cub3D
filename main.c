@@ -6,7 +6,7 @@
 /*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:04:32 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/05 19:12:46 by kseniakarem      ###   ########.fr       */
+/*   Updated: 2024/10/06 16:20:48 by kseniakarem      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int main(int argc, char **argv)
     
     //my_mlx_pixel_put(&game.img, x, y, RED);
 
-
-    draw_floor_ceiling(&game,&game.img );
+    ray_casting(&game);
+    //draw_floor_ceiling(&game,&game.img );
     mlx_put_image_to_window(game.mlx, game.win, game.img.img, 0, 0);
     mlx_loop(game.mlx);
     return 0;

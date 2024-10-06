@@ -14,23 +14,81 @@ void my_mlx_pixel_put(t_img* img, int x, int y, int color) // put the pixel
     *pixel_addr = color;
 }
 
-void draw_floor_ceiling(t_game *game, t_img* img) // draw the floor and the ceiling
+void draw_floor_ceiling(t_game *game, int ray_counter, int t_pix, int b_pix) // draw the floor and the ceiling
 {
- int  i =0;
- int x = 0;
+ int  i =b_pix;
 
-	while (i < SCREEN_HEIGHT/2)
-    {
-        while(x<=SCREEN_WIDTH)
-		    my_mlx_pixel_put(img, x++, i, game->color_floor); // floor
-        x = 0;
-        i++;
-    }
 	while (i < SCREEN_HEIGHT)
-	    {
-        while(x<=SCREEN_WIDTH)
-		    my_mlx_pixel_put(img, x++, i, game->color_ceiling); // floor
-        x = 0;
-        i++;
+    {
+        my_mlx_pixel_put(&game->img, ray_counter, i++, game->color_floor); // floor
     }
+	i=0;
+	while (i < t_pix)
+		my_mlx_pixel_put(&game->img, ray_counter, i++, game->color_ceiling);
+}
+
+
+t_image	*get_texture(t_game *game)
+{
+	game->ray.ray_angle = nor_angle(game->ray.ray_angle);
+	if (game->ray.flag == 0)
+	{
+		if (game->ray.ray_angle > M_PI / 2 && game->ray.ray_angle < 3 * (M_PI / 2))
+			return(&game->mapdata.east_wall);
+		else
+			return(&game->mapdata.west_wall);
+	}
+	else
+	{
+		if (game->ray.ray_angle > 0 && game->ray.ray_angle < M_PI)
+			return(&game->mapdata.south_wall);
+		else
+			return(&game->mapdata.north_wall);
+	}
+}
+
+int get_colour(t_game *game)
+{
+	game->ray.ray_angle = nor_angle(game->ray.ray_angle);
+	if (game->ray.flag == 0)
+	{
+		if (game->ray.ray_angle > M_PI / 2 && game->ray.ray_angle < 3 * (M_PI / 2))
+			return(PSYCHEDELIC_PINK);
+		else
+			return(PURPLE);
+	}
+	else
+	{
+		if (game->ray.ray_angle > 0 && game->ray.ray_angle < M_PI)
+			return(PSYCHEDELIC_LIME);
+		else
+			return(ORANGE);
+	}
+}
+
+void	draw_wall(t_game * game, int ray_counter, int t_pix, int b_pix)	// draw the wall
+{
+	int colour;
+
+	colour = get_colour(game);
+	while (t_pix < b_pix)
+		my_mlx_pixel_put(&game->img, ray_counter, t_pix++, colour);
+}
+
+void render_wall(t_game *game, int ray_counter) // render the wall
+{
+	double wall_h;
+	double b_pix;
+	double t_pix;
+
+	game->ray.dist *= cos(nor_angle(game->ray.ray_angle - game->player.angle)); // fix the fisheye
+	wall_h = (TILE_SIZE / game->ray.dist) * ((SCREEN_WIDTH / 2) / tan(game->player.fov_radians / 2)); // get the wall height
+	b_pix = (SCREEN_HEIGHT / 2) + (wall_h / 2); // get the bottom pixel
+	t_pix = (SCREEN_HEIGHT / 2) - (wall_h / 2); // get the top pixel
+	if (b_pix >SCREEN_HEIGHT) // check the bottom pixel
+		b_pix = SCREEN_HEIGHT;
+	if (t_pix < 0) // check the top pixel
+		t_pix = 0;
+	draw_wall(game, ray_counter, t_pix, b_pix); // draw the wall
+	draw_floor_ceiling(game, ray_counter, t_pix, b_pix); // draw the floor and the ceiling
 }

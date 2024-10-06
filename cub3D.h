@@ -6,7 +6,7 @@
 /*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:05:28 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/05 19:13:33 by kseniakarem      ###   ########.fr       */
+/*   Updated: 2024/10/06 16:38:46 by kseniakarem      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,11 +106,13 @@ typedef struct s_game
 	int			color_ceiling;
 	t_img		img;
 	t_player	player;
-	t_ray		*ray;
+	t_ray		ray;
 }	t_game;
 
 //raycasting
 int		hit_the_wall(float x, float y, t_game *game);
+void	ray_casting(t_game *game);
+void render_wall(t_game *game, int ray_counter);
 
 //utils
 size_t	ft_strlen(const char *str);
@@ -120,6 +122,5 @@ void my_mlx_pixel_put(t_img* img, int x, int y, int color);
 
 // parsing
 void init_struct_game(t_game *game, char * file_name);
-void draw_floor_ceiling(t_game *game, t_img* img);
-
+void draw_floor_ceiling(t_game *game, int ray_counter, int t_pix, int b_pix);
 #endif

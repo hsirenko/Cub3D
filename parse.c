@@ -265,25 +265,11 @@ int fill_map(t_game *game, char* src)
     if (!check_gamer(gamer, gamer_count))
         return(0);
     game->player.start_orient = gamer;
+    game->player.angle = 0; // FIXME
+    game->player.fov_radians = M_PI/2;
     return(1); 
 }
 
-void print_map(t_game *game)
-{
-    int i=0;
-    while (i < game->mapdata.map_h)
-    {
-        int j=0;
-        while (j < game->mapdata.map_w)
-        {
-            printf("%c",game->mapdata.map2d[i][j]);
-            j++;
-        }
-
-        printf("\n");
-    i++;
-    }
-}
 
 int get_map(t_game *game, char **inp_string)
 {
@@ -299,7 +285,6 @@ int get_map(t_game *game, char **inp_string)
         i++;
     }
     fill_map(game, *inp_string);
-    print_map(game);
     return(1);
 }
 

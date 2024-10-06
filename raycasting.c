@@ -6,7 +6,7 @@
 /*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 10:39:23 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/05 18:58:38 by kseniakarem      ###   ########.fr       */
+/*   Updated: 2024/10/06 16:39:16 by kseniakarem      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ static float	get_hor_inters(t_game *game, float angle)
 		hor_x += step_x;
 		hor_y += step_y;
 	}
-	game->ray->hrz_y = hor_y;
-	game->ray->hrz_x = hor_x;
+	game->ray.hrz_y = hor_y;
+	game->ray.hrz_x = hor_x;
 	return (sqrt(pow(hor_x - game->player.player_x, 2)
 			+ pow(hor_y - game->player.player_y, 2)));
 }
@@ -100,8 +100,8 @@ static float	get_vert_inters(t_game *game, float angle)
 		vert_x += step_x;
 		vert_y += step_y;
 	}
-	game->ray->vrt_x = vert_x;
-	game->ray->vrt_y = vert_y;
+	game->ray.vrt_x = vert_x;
+	game->ray.vrt_y = vert_y;
 	return (sqrt(pow(vert_x - game->player.player_x, 2)
 			+ pow(vert_y - game->player.player_y, 2)));
 }
@@ -114,22 +114,22 @@ void	ray_casting(t_game *game)
 
 	ray_counter = 0;
 	game->player.fov_radians = FOV * M_PI / 180;
-	game->ray->ray_angle = game->player.angle
+	game->ray.ray_angle = game->player.angle
 		- (game->player.fov_radians / 2);
 	while (ray_counter < SCREEN_WIDTH)
 	{
-		game->ray->flag = 0;
-		hor_inters = get_hor_inters(game, nor_angle(game->ray->ray_angle));
-		ver_inters = get_vert_inters(game, nor_angle(game->ray->ray_angle));
+		game->ray.flag = 0;
+		hor_inters = get_hor_inters(game, nor_angle(game->ray.ray_angle));
+		ver_inters = get_vert_inters(game, nor_angle(game->ray.ray_angle));
 		if (hor_inters >= ver_inters)
-			game->ray->dist = ver_inters;
+			game->ray.dist = ver_inters;
 		else
 		{
-			game->ray->dist = hor_inters;
-			game->ray->flag = 1;
+			game->ray.dist = hor_inters;
+			game->ray.flag = 1;
 		}
-		// ksusha's function to render the walls smth like render(game, ray);
+		render_wall(game,ray_counter);
 		ray_counter++;
-		game->ray->ray_angle += (game->player.fov_radians / SCREEN_WIDTH);
+		game->ray.ray_angle += (game->player.fov_radians / SCREEN_WIDTH);
 	}
 }
