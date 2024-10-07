@@ -18,8 +18,8 @@ minilibx/libmlx.a:
 %.o: %.c $(HEADER)
 	cc -o $@ $(CFLAGS) $(INCLUDES) -c  $<
 
-$(NAME): $(OBJ) $(HEADER) libft/libft.a
-	cc $(OBJ) libft/libft.a minilibx/libmlx.a -lXext -lX11 -lm -lz  -o $(NAME)
+$(NAME): $(OBJ) $(HEADER) libft/libft.a minilibx/libmlx.a
+	cc $(OBJ) libft/libft.a minilibx/libmlx.a -L /usr/X11/lib -lXext -lX11 -lm -lz  -o $(NAME)
 
 clean:
 	rm -f $(OBJ)
@@ -27,6 +27,7 @@ clean:
 
 fclean: clean
 	rm -f $(NAME)
+	make -C minilibx clean
 	make -C libft fclean
 
 test: all
