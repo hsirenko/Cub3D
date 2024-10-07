@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
+/*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 10:39:23 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/07 17:31:52 by kseniakarem      ###   ########.fr       */
+/*   Updated: 2024/10/07 18:37:24 by helensirenk      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,8 @@ int	hit_the_wall(float x, float y, t_game *game)
 	map_x = floor(x / TILE_SIZE);
 	if (map_y >= game->mapdata.map_h || map_x >= game->mapdata.map_w)
 		return (0);
-	if (game->mapdata.map2d[map_y] && map_x
-		<= (int)ft_strlen(game->mapdata.map2d[map_y]))
-		if (game->mapdata.map2d[map_y][map_x] == '1')
-			return (0);
+	if (game->mapdata.map2d[map_y][map_x] == '1')
+		return (0);
 	return (1);
 }
 
