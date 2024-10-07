@@ -12,6 +12,9 @@ all: $(NAME)
 libft/libft.a:
 	make -C libft
 
+minilibx/libmlx.a:
+	make -C minilibx
+
 %.o: %.c $(HEADER)
 	cc -o $@ $(CFLAGS) $(INCLUDES) -c  $<
 
