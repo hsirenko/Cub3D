@@ -6,7 +6,7 @@
 /*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 18:06:59 by kkaremin          #+#    #+#             */
-/*   Updated: 2024/10/07 17:39:25 by kseniakarem      ###   ########.fr       */
+/*   Updated: 2024/10/07 18:11:13 by kseniakarem      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	try_print_percent(char next)
 	return (0);
 }
 
-int	putchar(char c)
+int	ft_putchar(char c)
 {
 	ft_putchar_fd(c, 1);
 	return (1);
@@ -54,7 +54,7 @@ int	ft_printf(const char *format, ...)
 	{
 		if (*i != '%')
 		{
-			printed += putchar(*i);
+			printed += ft_putchar(*i);
 			i++;
 			continue ;
 		}
