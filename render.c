@@ -53,16 +53,16 @@ int get_colour(t_game *game)
 	if (game->ray.flag == 0)
 	{
 		if (game->ray.ray_angle > M_PI / 2 && game->ray.ray_angle < 3 * (M_PI / 2))
-			return(PSYCHEDELIC_PINK);
+			return(PSYCHEDELIC_PINK); //ea
 		else
-			return(PURPLE);
+			return(PURPLE);//we
 	}
 	else
 	{
 		if (game->ray.ray_angle > 0 && game->ray.ray_angle < M_PI)
-			return(PSYCHEDELIC_LIME);
+			return(PSYCHEDELIC_LIME);//so
 		else
-			return(ORANGE);
+			return(BLUE);//no
 	}
 }
 
@@ -89,6 +89,6 @@ void render_wall(t_game *game, int ray_counter) // render the wall
 		b_pix = SCREEN_HEIGHT;
 	if (t_pix < 0) // check the top pixel
 		t_pix = 0;
-	draw_wall(game, ray_counter, t_pix, b_pix); // draw the wall
 	draw_floor_ceiling(game, ray_counter, t_pix, b_pix); // draw the floor and the ceiling
+	draw_wall(game, ray_counter, t_pix, b_pix); // draw the wall
 }

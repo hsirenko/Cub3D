@@ -265,8 +265,7 @@ int fill_map(t_game *game, char* src)
     if (!check_gamer(gamer, gamer_count))
         return(0);
     game->player.start_orient = gamer;
-    game->player.angle = 0; // FIXME
-    game->player.fov_radians = M_PI/2;
+    game->player.angle = M_PI/2; // FIXME 
     return(1); 
 }
 
