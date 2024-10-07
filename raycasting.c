@@ -6,7 +6,7 @@
 /*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 10:39:23 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/07 16:30:15 by kseniakarem      ###   ########.fr       */
+/*   Updated: 2024/10/07 17:31:52 by kseniakarem      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ static float	get_vert_inters(t_game *game, float angle)
 	float	step_x;
 	float	step_y;
 
+	vert_y = 0.0;
 	direction = check_inters(angle, &vert_x, &step_x, 0);
 	step_x = TILE_SIZE;
 	step_y = TILE_SIZE * tan(angle);
