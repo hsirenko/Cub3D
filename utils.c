@@ -6,7 +6,7 @@
 /*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 10:53:44 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/09/24 12:06:36 by helensirenk      ###   ########.fr       */
+/*   Updated: 2024/09/25 19:27:56 by helensirenk      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,15 @@ float	normalz_angle(float angle)
 		angle -= (M_PI * 2);
 	}
 	return (angle);
+}
+
+void	ft_exit(t_game *game)
+{
+	//mlx_destroy_image(game->mlx, game->img);
+	mlx_destroy_display(game->mlx);
+	free(game->player);
+	free(game->ray);
+	mlx_destroy_window(game->mlx, game->win);
+	printf("Game is closed\n");
+	exit(0);
 }

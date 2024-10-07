@@ -6,14 +6,33 @@
 /*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:04:32 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/09/24 15:00:06 by helensirenk      ###   ########.fr       */
+/*   Updated: 2024/10/07 16:29:56 by helensirenk      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
+static void	draw_ceiling_and_floor(t_game *game)
+{
+	unsigned int	*dst;
+	unsigned int	i;
 
-int main() //(int **argc, char **argv)
+	dst = (unsigned int *) game->img.addr;
+	i = SCREEN_WIDTH * SCREEN_HEIGHT / 2 + 1;
+	while (--i > 0)
+		*dst++ = game->color_ceiling;
+	i = SCREEN_WIDTH * SCREEN_HEIGHT / 2 + 1;
+	while (--i > 0)
+		*dst++ = game->color_floor;
+}
+
+static void    init_struct_game(t_game *game)
+{
+    game->color_ceiling = BLUE;
+    game->color_floor = PSYCHEDELIC_CYAN;
+}
+
+int main(void) //(int **argc, char **argv)
 {
     //t_img  *img;
     t_game  *game;
@@ -27,6 +46,7 @@ int main() //(int **argc, char **argv)
     game->img.img = mlx_new_image(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
     game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bpp, &game->img.line_length, &game->img.endian);
     //my_mlx_pixel_put(img, 5, 5, RED);
+    //ray_casting(&game);
     draw_ceiling_and_floor(game);
     mlx_put_image_to_window(game->mlx, mlx_win, game->img.img, 0, 0);
     mlx_loop(game->mlx);
