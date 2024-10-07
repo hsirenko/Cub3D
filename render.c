@@ -69,6 +69,7 @@ int get_colour(t_game *game)
 void	draw_wall(t_game * game, int ray_counter, int t_pix, int b_pix)	// draw the wall
 {
 	int colour;
+	// printf("top=%d bottom=%d\n", t_pix, b_pix);
 
 	colour = get_colour(game);
 	while (t_pix < b_pix)
@@ -81,8 +82,10 @@ void render_wall(t_game *game, int ray_counter) // render the wall
 	double b_pix;
 	double t_pix;
 
+(void)ray_counter;
 	game->ray.dist *= cos(nor_angle(game->ray.ray_angle - game->player.angle)); // fix the fisheye
 	wall_h = (TILE_SIZE / game->ray.dist) * ((SCREEN_WIDTH / 2) / tan(game->player.fov_radians / 2)); // get the wall height
+	// printf("dist=%f wall_h=%f\n", game->ray.dist, wall_h);
 	b_pix = (SCREEN_HEIGHT / 2) + (wall_h / 2); // get the bottom pixel
 	t_pix = (SCREEN_HEIGHT / 2) - (wall_h / 2); // get the top pixel
 	if (b_pix >SCREEN_HEIGHT) // check the bottom pixel

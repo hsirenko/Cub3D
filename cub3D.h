@@ -6,7 +6,7 @@
 /*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:05:28 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/07 17:36:25 by kseniakarem      ###   ########.fr       */
+/*   Updated: 2024/10/07 17:56:38 by kseniakarem      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,8 +243,8 @@ typedef struct s_ray
 	double	vrt_x;
 	double	vrt_y;
 	double	ray_angle;
+	double	dist;
 	int		flag;
-	int		dist;
 }	t_ray;
 
 typedef struct s_game
