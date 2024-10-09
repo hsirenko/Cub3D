@@ -217,6 +217,18 @@ int check(char c, char *str)
     return(0);
 }
 
+void	find_angle_view(t_game *game, const char c)
+{
+	if (c == 'E')
+		game->player.angle = 0.0f * M_PI;
+	else if (c == 'N')
+		game->player.angle = 0.5f * M_PI;
+	else if (c == 'W')
+		game->player.angle = 1.0f * M_PI;
+	else if (c == 'S')
+		game->player.angle = -0.5f * M_PI;
+}
+
 int check_gamer(char gamer, int gamer_count)
 {
     if (gamer_count != 1)
@@ -265,7 +277,7 @@ int fill_map(t_game *game, char* src)
     if (!check_gamer(gamer, gamer_count))
         return(0);
     game->player.start_orient = gamer;
-    game->player.angle = M_PI/2; // FIXME 
+    find_angle_view(game,gamer);
     return(1); 
 }
 
@@ -318,7 +330,11 @@ void init_struct_game(t_game *game, char * file_name)
 
     int status = parse(game, fd);
     if (status == 0) {
-        panic("pizdec");
+        panic("failed to parse map");
+    }
+
+    if (has_holes(game->mapdata, game->player)) {
+        panic("map has holes");
     }
 
     printf("map parsed width=%d height=%d\n", game->mapdata.map_w, game->mapdata.map_h);

@@ -1,3 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   stack.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/09 19:19:13 by kseniakarem       #+#    #+#             */
+/*   Updated: 2024/10/09 19:26:21 by kseniakarem      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "cub3D.h"
+
 typedef struct s_coord {
     int x;
     int y;
@@ -13,19 +27,20 @@ t_stack make_stack(int capacity) {
     t_stack stack;
     stack.cap = capacity;
     stack.len = 0;
-    stack.data = calloc(capacity, sizeof(t_coord));
+    stack.data = ft_calloc(capacity, sizeof(t_coord));
     return stack;
 }
 
 void push(t_stack* stack, t_coord coord) {
     if (stack->len >= stack->cap)
     {
-        t_coord* new_data = calloc(stack->cap*2, sizeof(t_coord));
-        memcpy(new_data, stack->data, stack->cap * sizeof(t_coord));
+        t_coord* new_data = ft_calloc(stack->cap*2, sizeof(t_coord));
+        ft_memcpy(new_data, stack->data, stack->cap * sizeof(t_coord));
         stack->cap *= 2;
     }
     
     stack->data[stack->len] = coord;
+    stack->len++;
 }
 
 int pop(t_stack* stack, t_coord* dst) {
@@ -45,15 +60,13 @@ t_coord new_coord(int x, int y) {
     return c;
 }
 
-int has_holes(char** map, int w, int h, int start_x, int start_y) {
-    t_stack stack = make_stack(42);
+int has_holes(t_mapdata map, t_player player) {
+    t_stack stack = make_stack(1024);
 
-    int** visited = calloc(h, sizeof(int*));
-    for(int i = 0; i < h; i++) {
-        visited[i] = calloc(w, sizeof(int));
-    }
+    int found_holes = 0;
+    char* visited = calloc(map.map_h*map.map_w, sizeof(char));
 
-    push(&stack, new_coord(start_x, start_y));
+    push(&stack, new_coord(player.player_x, player.player_y));
     while(stack.len > 0) {
         t_coord curr;
         pop(&stack, &curr);
@@ -66,13 +79,22 @@ int has_holes(char** map, int w, int h, int start_x, int start_y) {
 
         for(int i = 0; i < 4; i++) {
             t_coord neighbour = neighbours[i];
-            if (neighbour.x < 0 || neighbour.y < 0 || neighbour.x >= w || neighbour.y >= h)
-                return 1;
-            if (map[neighbour.y][neighbour.x] == '0' && !visited[neighbour.y][neighbour.x]) {
-                visited[neighbour.y][neighbour.x] = 1;
+            if (neighbour.x < 0 || neighbour.y < 0 || neighbour.x >= map.map_w || neighbour.y >= map.map_h)
+            {
+                printf("found hole at x=%d y=%d\n", neighbour.x, neighbour.y);
+                found_holes = 1;
+                break;
+            }
+            if (map.map2d[neighbour.y][neighbour.x] == '0' && !visited[neighbour.y * map.map_w + neighbour.x]) {
+                visited[neighbour.y * map.map_w + neighbour.x] = 1;
                 push(&stack, neighbour);
             }
         }
+        if (found_holes)
+            break;
     }
-    return 0;
+    free(stack.data);
+    free(visited);
+
+    return found_holes;
 }

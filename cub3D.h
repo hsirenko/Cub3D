@@ -6,7 +6,7 @@
 /*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:05:28 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/07 17:56:38 by kseniakarem      ###   ########.fr       */
+/*   Updated: 2024/10/09 19:21:25 by kseniakarem      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -278,4 +278,5 @@ void ft_exit(t_game *game);
 // parsing
 void init_struct_game(t_game *game, char * file_name);
 void draw_floor_ceiling(t_game *game, int ray_counter, int t_pix, int b_pix);
+int has_holes(t_mapdata map, t_player player);
 #endif
