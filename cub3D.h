@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
+/*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:05:28 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/07 17:56:38 by kseniakarem      ###   ########.fr       */
+/*   Updated: 2024/10/09 21:57:42 by helensirenk      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
-#include <fcntl.h>
+# include <fcntl.h>
 
 # define MAP_WIDTH 24
 # define MAP_HEIGHT 24
@@ -204,21 +204,23 @@ typedef struct s_img
 
 typedef struct s_image
 {
-	void *img;
-	int img_h;
-	int img_w;
+	void	*img;
+	int		img_h;
+	int		img_w;
 } t_image;
 
 typedef struct s_mapdata
 {
 	char	**map2d;
-	char **map_check;
-	int map_h;
+	char	**map_check;
+	int		map_h;
 	int		map_w;
+	int		p_x;
+	int		p_y;
 	t_image north_wall;
-	t_image south_wall;
-	t_image east_wall;
-	t_image west_wall;
+	t_image	south_wall;
+	t_image	east_wall;
+	t_image	west_wall;
 
 
 }	t_mapdata;
@@ -251,31 +253,38 @@ typedef struct s_game
 {
 	void		*mlx;
 	void		*win;
-	t_mapdata	mapdata;
+	t_mapdata	*mapdata;
 	int			color_floor;
 	int			color_ceiling;
-	t_img		img;
-	t_player	player;
-	t_ray		ray;
-	t_key 		keydata;
+	t_img		*img;
+	t_player	*player;
+	t_ray		*ray;
+	t_key		*keydata;
 }	t_game;
 
 //raycasting
 int		hit_the_wall(float x, float y, t_game *game);
 void	ray_casting(t_game *game);
-void render_wall(t_game *game, int ray_counter);
+void	render_wall(t_game *game, int ray_counter);
 
-//raycasting
-void	ray_casting(t_game *game);
+//player movements
+void	key_press(t_keydata keydata, void *game_void);
+void	rotate(t_game *game, int i);
+void	move(t_game *game, double move_x, double move_y);
+void	hook_move_rotate(t_game *game, double move_x, double move_y);
+void	hook_move_rotate(t_game *game, double move_x, double move_y);
 
-//utils
+// utils
 size_t	ft_strlen(const char *str);
 int		unit_circle(float angle, char c);
 float	nor_angle(float angle);
-void my_mlx_pixel_put(t_img* img, int x, int y, int color);
-void ft_exit(t_game *game);
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+void	ft_exit(t_game *game);
 
 // parsing
-void init_struct_game(t_game *game, char * file_name);
-void draw_floor_ceiling(t_game *game, int ray_counter, int t_pix, int b_pix);
+void	init_struct_game(t_game *game, char *file_name);
+void	draw_floor_ceiling(t_game *game, int ray_counter, int t_pix, int b_pix);
+
+//exec
+int		execution(t_mapdata *mapdata_exec);
 #endif
