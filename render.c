@@ -66,14 +66,28 @@ int get_colour(t_game *game)
 	}
 }
 
-void	draw_wall(t_game * game, int ray_counter, int t_pix, int b_pix)	// draw the wall
+void	draw_wall(t_game * game, int ray_counter, int t_pix, int b_pix, double wall_h)	// draw the wall
 {
-	int colour;
-	// printf("top=%d bottom=%d\n", t_pix, b_pix);
+	double			x_o;
+	double			y_o;
+	mlx_texture_t	*texture;
+	uint32_t		*arr;
+	double			factor;
 
-	colour = get_colour(game);
+	texture = get_texture(mlx, mlx->ray->flag);
+	arr = (uint32_t *)texture->pixels;
+	factor = (double)texture->height / wall_h;
+	x_o = get_x_o(texture, mlx);
+	y_o = (t_pix - (S_H / 2) + (wall_h / 2)) * factor;
+	if (y_o < 0)
+		y_o = 0;
 	while (t_pix < b_pix)
-		my_mlx_pixel_put(&game->img, ray_counter, t_pix++, colour);
+	{
+		my_mlx_pixel_put(mlx, mlx->ray->index, t_pix, reverse_bytes \
+		(arr[(int)y_o * texture->width + (int)x_o]));
+		y_o += factor;
+		t_pix++;
+	}
 }
 
 void render_wall(t_game *game, int ray_counter) // render the wall
@@ -92,6 +106,6 @@ void render_wall(t_game *game, int ray_counter) // render the wall
 		b_pix = SCREEN_HEIGHT;
 	if (t_pix < 0) // check the top pixel
 		t_pix = 0;
-	draw_floor_ceiling(game, ray_counter, t_pix, b_pix); // draw the floor and the ceiling
+	draw_floor_ceiling(game, ray_counter, t_pix, b_pix, wall_h); // draw the floor and the ceiling
 	draw_wall(game, ray_counter, t_pix, b_pix); // draw the wall
 }
