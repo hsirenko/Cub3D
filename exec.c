@@ -6,13 +6,13 @@
 /*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 18:26:21 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/10 15:12:41 by helensirenk      ###   ########.fr       */
+/*   Updated: 2024/10/10 15:25:07 by helensirenk      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static void	draw_map(void *pixel)
+void	draw_map(void *pixel)
 {
 	t_game	*game;
 
@@ -52,9 +52,9 @@ int	execution(t_game *game)
 	// check to see if the map within the limits, and if not, free the map;
 	// check for loading textures;
 	get_angle(game);
-	mlx_key_hook(game->mlx, (hook)key_press, &game);
+	mlx_key_hook(game->mlx, (hook)key_press, game);
 
-	mlx_loop_hook(game->mlx, (loop_hook)draw_map, &game);
+	// mlx_loop_hook(game->mlx, (loop_hook)draw_map, game);
 	mlx_loop(game->mlx);
 	ft_exit(game);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:05:28 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/10 15:01:35 by helensirenk      ###   ########.fr       */
+/*   Updated: 2024/10/10 15:25:16 by helensirenk      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -285,5 +285,6 @@ void draw_floor_ceiling(t_game *game, int ray_counter, int t_pix, int b_pix);
 
 //exec
 int	execution(t_game *game);
+void	draw_map(void *pixel);
 
 #endif

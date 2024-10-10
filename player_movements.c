@@ -6,7 +6,7 @@
 /*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 16:39:53 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/10 15:02:05 by helensirenk      ###   ########.fr       */
+/*   Updated: 2024/10/10 15:25:57 by helensirenk      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	key_press(t_keydata keydata, void *game_void)
 	else if ((keydata.key == MLX_KEY_RIGHT) && (keydata.action == PRESS))
 		game->player.rotate = 1;
 	key_release(keydata, game);
+	// draw_map(game);
 }
 
 void	rotate(t_game *game, int i)
