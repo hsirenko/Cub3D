@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
+/*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:05:28 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/07 17:56:38 by kseniakarem      ###   ########.fr       */
+/*   Updated: 2024/10/10 15:01:35 by helensirenk      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,15 +212,15 @@ typedef struct s_image
 typedef struct s_mapdata
 {
 	char	**map2d;
-	char **map_check;
-	int map_h;
+	char 	**map_check;
+	int 	map_h;
 	int		map_w;
+	int 	p_y;
+	int 	p_x;
 	t_image north_wall;
 	t_image south_wall;
 	t_image east_wall;
 	t_image west_wall;
-
-
 }	t_mapdata;
 
 
@@ -255,6 +255,7 @@ typedef struct s_game
 	int			color_floor;
 	int			color_ceiling;
 	t_img		img;
+	//t_image		*texture;
 	t_player	player;
 	t_ray		ray;
 	t_key 		keydata;
@@ -265,8 +266,11 @@ int		hit_the_wall(float x, float y, t_game *game);
 void	ray_casting(t_game *game);
 void render_wall(t_game *game, int ray_counter);
 
-//raycasting
-void	ray_casting(t_game *game);
+//player movements
+void	key_press(t_keydata keydata, void *game_void);
+void	rotate(t_game *game, int i);
+void	move(t_game *game, double move_x, double move_y);
+void	hook_move_rotate(t_game *game, double move_x, double move_y);
 
 //utils
 size_t	ft_strlen(const char *str);
@@ -278,4 +282,8 @@ void ft_exit(t_game *game);
 // parsing
 void init_struct_game(t_game *game, char * file_name);
 void draw_floor_ceiling(t_game *game, int ray_counter, int t_pix, int b_pix);
+
+//exec
+int	execution(t_game *game);
+
 #endif

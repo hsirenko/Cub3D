@@ -27,7 +27,6 @@ void draw_floor_ceiling(t_game *game, int ray_counter, int t_pix, int b_pix) // 
 		my_mlx_pixel_put(&game->img, ray_counter, i++, game->color_ceiling);
 }
 
-
 t_image	*get_texture(t_game *game)
 {
 	game->ray.ray_angle = nor_angle(game->ray.ray_angle);

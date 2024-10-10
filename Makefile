@@ -2,7 +2,7 @@ DEFAULT_GOAL := all
 
 NAME = cub3D
 CFLAGS = -Wall -Werror -Wextra -g
-SRC = main.c parse.c raycasting.c utils.c render.c
+SRC = main.c parse.c raycasting.c utils.c render.c exec.c player_movements.c
 OBJ = $(SRC:.c=.o)
 HEADER = $(NAME).h
 INCLUDES += -Ilibft -Iminilibx

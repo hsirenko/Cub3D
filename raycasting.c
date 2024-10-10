@@ -6,7 +6,7 @@
 /*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 10:39:23 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/07 18:37:24 by helensirenk      ###   ########.fr       */
+/*   Updated: 2024/10/10 15:02:13 by helensirenk      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static float	get_vert_inters(t_game *game, float angle)
 {
 	int		direction;
 	float	vert_x;
-	float	vert_y = 0;
+	float	vert_y;
 	float	step_x;
 	float	step_y;
 
@@ -113,20 +113,21 @@ void	ray_casting(t_game *game)
 
 	ray_counter = 0;
 	game->player.fov_radians = FOV * M_PI / 180;
-	game->ray.ray_angle = game->player.angle - (game->player.fov_radians / 2);
+	game->ray.ray_angle = game->player.angle \
+			- (game->player.fov_radians / 2);
 	while (ray_counter < SCREEN_WIDTH)
 	{
 		game->ray.flag = 0;
 		hor_inters = get_hor_inters(game, nor_angle(game->ray.ray_angle));
 		ver_inters = get_vert_inters(game, nor_angle(game->ray.ray_angle));
 		if (hor_inters >= ver_inters)
-			game->ray.dist = ver_inters;
+			game->ray.flag = ver_inters;
 		else
 		{
 			game->ray.dist = hor_inters;
 			game->ray.flag = 1;
 		}
-		render_wall(game,ray_counter);
+		render_wall(game, ray_counter);
 		ray_counter++;
 		game->ray.ray_angle += (game->player.fov_radians / SCREEN_WIDTH);
 	}
