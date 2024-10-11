@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_movements.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
+/*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 16:39:53 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/11 14:39:49 by kseniakarem      ###   ########.fr       */
+/*   Updated: 2024/10/11 14:53:14 by helensirenk      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,21 +70,19 @@ void	rotate(t_game *game, int i)
 
 void	move(t_game *game, double move_x, double move_y)
 {
-	int	new_pos_x;
-	int	new_pos_y;
+	double	new_pos_x;
+	double	new_pos_y;
 	int	map_x;
 	int	map_y;
 
-	new_pos_x = round(game->player.player_x + move_x);
-	new_pos_y = round(game->player.player_y + move_y);
-	map_x = new_pos_x / TILE_SIZE;
-	map_y = new_pos_y / TILE_SIZE;
+	new_pos_x = game->player.player_x + move_x;
+	new_pos_y = game->player.player_y + move_y;
+	map_x = new_pos_x;
+	map_y = new_pos_y;
 	printf("x=%d y=%d\n", map_x, map_y);
 	if ((game->mapdata.map2d[map_y][map_x] != '1')
-		&& (game->mapdata.map_check[map_y][game->player.player_x
-		/ TILE_SIZE] != '1')
-		&& (game->mapdata.map_check[game->player.player_y
-		/ TILE_SIZE][map_x] != '1'))
+		&& (game->mapdata.map_check[map_y][(int)game->player.player_x] != '1')
+		&& (game->mapdata.map_check[(int)game->player.player_y][map_x] != '1'))
 	{
 		game->player.player_x = new_pos_x;
 		game->player.player_y = new_pos_y;

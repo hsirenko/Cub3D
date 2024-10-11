@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
+/*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:05:28 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/11 14:24:04 by kseniakarem      ###   ########.fr       */
+/*   Updated: 2024/10/11 14:52:02 by helensirenk      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 # define MAP_HEIGHT 24
 # define SCREEN_WIDTH 640
 # define SCREEN_HEIGHT 480
-# define TILE_SIZE 64
 # define FOV 60
 # define ROTATION_SPEED 0.05
 # define PLAYER_SPEED 3
@@ -224,8 +223,8 @@ typedef struct s_mapdata
 
 typedef struct s_player
 {
-	int		player_x;
-	int		player_y;
+	double		player_x;
+	double		player_y;
 	char	start_orient;
 	double	angle;
 	float	fov_radians;

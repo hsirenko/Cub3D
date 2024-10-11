@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
+/*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 18:26:21 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/11 14:37:52 by kseniakarem      ###   ########.fr       */
+/*   Updated: 2024/10/11 14:54:41 by helensirenk      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	get_angle(t_game *game)
 {
 	char	direction;
 
-	direction = game->mapdata.map2d[game->player.player_y][game->player.player_x];
+	direction = game->mapdata.map2d[(int)game->player.player_y][(int)game->player.player_x];
 	if (direction == 'N')
 		game->player.angle = 3 * M_PI / 2;
 	if (direction == 'S')
@@ -35,8 +35,6 @@ static void	get_angle(t_game *game)
 	if (direction == 'W')
 		game->player.angle = M_PI;
 	game->player.fov_radians = FOV * M_PI / 180;
-	game->player.player_x = (game->player.player_x * TILE_SIZE) + TILE_SIZE / 2;
-	game->player.player_y = (game->player.player_y * TILE_SIZE) + TILE_SIZE / 2;
 }
 
 typedef int (*hook)(int, void*);

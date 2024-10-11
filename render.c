@@ -83,7 +83,7 @@ void render_wall(t_game *game, int ray_counter) // render the wall
 
 (void)ray_counter;
 	game->ray.dist *= cos(nor_angle(game->ray.ray_angle - game->player.angle)); // fix the fisheye
-	wall_h = (TILE_SIZE / game->ray.dist) * ((SCREEN_WIDTH / 2) / tan(game->player.fov_radians / 2)); // get the wall height
+	wall_h = (1. / game->ray.dist) * ((SCREEN_WIDTH / 2) / tan(game->player.fov_radians / 2)); // get the wall height
 	// printf("dist=%f wall_h=%f\n", game->ray.dist, wall_h);
 	b_pix = (SCREEN_HEIGHT / 2) + (wall_h / 2); // get the bottom pixel
 	t_pix = (SCREEN_HEIGHT / 2) - (wall_h / 2); // get the top pixel
