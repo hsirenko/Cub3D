@@ -6,7 +6,7 @@
 /*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 10:39:23 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/09 19:10:44 by kseniakarem      ###   ########.fr       */
+/*   Updated: 2024/10/11 14:12:11 by kseniakarem      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,18 +131,4 @@ void	ray_casting(t_game *game)
 		game->ray.ray_angle += (game->player.fov_radians / SCREEN_WIDTH);
 	}
 
-
-    t_image kek = game->mapdata.east_wall;
-    int bpp, ll, end;
-    char* dst = mlx_get_data_addr(kek.img, &bpp, &ll, &end);
-	printf("ll=%d bpp=%d end=%d\n", bpp, ll, end);
-    for (int y = 0; y < kek.img_h; y++) {
-        for (int x = 0; x < kek.img_w; x++) {
-            ft_memcpy(
-                    &game->img.addr[y * game->img.line_length + x * game->img.bpp/8], 
-                    &dst[y*ll+x*bpp/8],
-                    bpp/8
-            );
-        }
-    }
 }
