@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
+/*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 10:39:23 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/11 14:56:01 by helensirenk      ###   ########.fr       */
+/*   Updated: 2024/10/11 15:22:31 by kseniakarem      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,4 +130,6 @@ void	ray_casting(t_game *game)
 		ray_counter++;
 		game->ray.ray_angle += (game->player.fov_radians / SCREEN_WIDTH);
 	}
+	
+    mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
 }

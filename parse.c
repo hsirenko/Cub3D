@@ -320,5 +320,5 @@ void init_struct_game(t_game *game, char * file_name)
         panic("pizdec");
     }
 
-    printf("map parsed width=%d height=%d\n", game->mapdata.map_w, game->mapdata.map_h);
+    // printf("map parsed width=%d height=%d\n", game->mapdata.map_w, game->mapdata.map_h);
 }

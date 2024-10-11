@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_movements.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
+/*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 16:39:53 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/11 14:53:14 by helensirenk      ###   ########.fr       */
+/*   Updated: 2024/10/11 15:09:42 by kseniakarem      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,10 @@ void	move(t_game *game, double move_x, double move_y)
 	new_pos_y = game->player.player_y + move_y;
 	map_x = new_pos_x;
 	map_y = new_pos_y;
-	printf("x=%d y=%d\n", map_x, map_y);
+	printf("px=%f py=%f x=%d y=%d\n", game->player.player_x, game->player.player_y, map_x, map_y);
 	if ((game->mapdata.map2d[map_y][map_x] != '1')
-		&& (game->mapdata.map_check[map_y][(int)game->player.player_x] != '1')
-		&& (game->mapdata.map_check[(int)game->player.player_y][map_x] != '1'))
+		&& (game->mapdata.map2d[map_y][(int)game->player.player_x] != '1')
+		&& (game->mapdata.map2d[(int)game->player.player_y][map_x] != '1'))
 	{
 		game->player.player_x = new_pos_x;
 		game->player.player_y = new_pos_y;
