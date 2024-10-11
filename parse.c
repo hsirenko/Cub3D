@@ -66,7 +66,7 @@ int parse_path(void* mlx, char* direction, char **inp_string, t_image* img)
     end_path = ft_strchr(*inp_string, '\n');
     path = ft_substr(*inp_string,0,(end_path-*inp_string));
     *inp_string = trim_str(ft_strlen(path) + 1, *inp_string);
-    printf("mlx=%p path_ptr=%p path=%s img=%p\n", mlx, path, path, img);
+    // printf("mlx=%p path_ptr=%p path=%s img=%p\n", mlx, path, path, img);
     img->img = mlx_xpm_file_to_image(mlx, path, &img->img_w, &img->img_h);
     if(!img->img) {
         return(0);

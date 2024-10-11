@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
+/*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:04:32 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/10 15:22:53 by helensirenk      ###   ########.fr       */
+/*   Updated: 2024/10/11 14:31:46 by kseniakarem      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int main(int argc, char **argv)
     t_game  game;
 
     game.mlx = mlx_init();
-    printf("mlx=%p\n", game.mlx);
     game.win = mlx_new_window(game.mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "Cub3D");
     init_struct_game(&game, argv[1]);
     //game.img.img = mlx_new_image(game.mlx, SCREEN_WIDTH, SCREEN_HEIGHT);

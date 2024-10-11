@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_movements.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
+/*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 16:39:53 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/10 15:25:57 by helensirenk      ###   ########.fr       */
+/*   Updated: 2024/10/11 14:39:49 by kseniakarem      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	key_press(t_keydata keydata, void *game_void)
 	else if ((keydata.key == MLX_KEY_RIGHT) && (keydata.action == PRESS))
 		game->player.rotate = 1;
 	key_release(keydata, game);
-	// draw_map(game);
+	draw_map(game);
 }
 
 void	rotate(t_game *game, int i)
@@ -79,6 +79,7 @@ void	move(t_game *game, double move_x, double move_y)
 	new_pos_y = round(game->player.player_y + move_y);
 	map_x = new_pos_x / TILE_SIZE;
 	map_y = new_pos_y / TILE_SIZE;
+	printf("x=%d y=%d\n", map_x, map_y);
 	if ((game->mapdata.map2d[map_y][map_x] != '1')
 		&& (game->mapdata.map_check[map_y][game->player.player_x
 		/ TILE_SIZE] != '1')

@@ -6,7 +6,7 @@
 /*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 18:26:21 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/11 14:29:57 by kseniakarem      ###   ########.fr       */
+/*   Updated: 2024/10/11 14:37:52 by kseniakarem      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,8 @@ void	draw_map(void *pixel)
 	t_game	*game;
 
 	game = pixel;
-	mlx_destroy_image(game->mlx, &game->img);
-	game->img.img = mlx_new_image(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-	game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bpp, &game->img.line_length, &game->img.endian);
 	move(game, 0, 0);
 	ray_casting(game);
-	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
 }
 
 static void	get_angle(t_game *game)
