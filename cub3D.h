@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
+/*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:05:28 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/10 15:25:16 by helensirenk      ###   ########.fr       */
+/*   Updated: 2024/10/11 14:24:04 by kseniakarem      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,8 +215,6 @@ typedef struct s_mapdata
 	char 	**map_check;
 	int 	map_h;
 	int		map_w;
-	int 	p_y;
-	int 	p_x;
 	t_image north_wall;
 	t_image south_wall;
 	t_image east_wall;
