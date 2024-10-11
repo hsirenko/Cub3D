@@ -255,8 +255,8 @@ int fill_map(t_game *game, char* src)
         if (!check(src[c], " 01")) {
             gamer_count++;
             gamer = src[c];
-            game->player.player_x = j;
-            game->player.player_y = i;
+            game->player.player_x = j + 0.5;
+            game->player.player_y = i + 0.5;
         }
         j++;
         c++;
@@ -264,7 +264,7 @@ int fill_map(t_game *game, char* src)
     if (!check_gamer(gamer, gamer_count))
         return(0);
     game->player.start_orient = gamer;
-    game->player.angle = M_PI/2; // FIXME 
+    game->player.angle = 0; // FIXME 
     return(1); 
 }
 

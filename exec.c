@@ -6,7 +6,7 @@
 /*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 18:26:21 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/11 18:19:08 by helensirenk      ###   ########.fr       */
+/*   Updated: 2024/10/11 18:46:10 by helensirenk      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	draw_map(void *pixel)
 	t_game	*game;
 
 	game = pixel;
-	hook_move_rotate(game, 0, 0);
 	ray_casting(game);
 }
 

@@ -6,7 +6,7 @@
 /*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:05:28 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/11 18:32:30 by helensirenk      ###   ########.fr       */
+/*   Updated: 2024/10/11 18:53:53 by helensirenk      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,9 +230,6 @@ typedef struct s_player
 	char	start_orient;
 	double	angle;
 	float	fov_radians;
-	int		left_right;
-	int		up_down;
-	int 	rotate;
 }	t_player;
 
 typedef struct s_ray
@@ -266,8 +263,8 @@ void	ray_casting(t_game *game);
 void render_wall(t_game *game, int ray_counter);
 
 //player movements
-void	key_press(t_keydata keydata, void *game_void);
-void	rotate(t_game *game, int i);
+void key_press(int key, void *game_void);
+void rotate(t_game *game, int i);
 void	move(t_game *game, double move_x, double move_y);
 void	hook_move_rotate(t_game *game, double move_x, double move_y);
 

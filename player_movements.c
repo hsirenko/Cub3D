@@ -6,132 +6,84 @@
 /*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 16:39:53 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/11 18:32:26 by helensirenk      ###   ########.fr       */
+/*   Updated: 2024/10/11 19:06:30 by helensirenk      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static void	key_release(t_keydata keydata, t_game *game)
-{
-	if (keydata.key == MLX_KEY_D && keydata.action == RELEASE)
-		game->player.left_right = 0;
-	else if (keydata.key == MLX_KEY_A && keydata.action == RELEASE)
-		game->player.left_right = 0;
-	else if (keydata.key == MLX_KEY_W && keydata.action == RELEASE)
-		game->player.up_down = 0;
-	else if (keydata.key == MLX_KEY_S && keydata.action == RELEASE)
-		game->player.up_down = 0;
-	else if (keydata.key == MLX_KEY_RIGHT && keydata.action == RELEASE)
-		game->player.rotate = 0;
-	else if (keydata.key == MLX_KEY_LEFT && keydata.action == RELEASE)
-		game->player.rotate = 0;
+typedef struct s_vec2f {
+	float x;
+	float y;
+} t_vec2f;
+
+t_vec2f vec2f(float x, float y) {
+	t_vec2f vec;
+	vec.x = x;
+	vec.y = y;
+	return vec;
 }
 
-void	key_press(t_keydata keydata, void *game_void)
+t_vec2f rotate_vec(t_vec2f vec, float angle) {
+	printf("rotate %f\n", angle);
+	t_vec2f res;
+	res.x = vec.x * cos(angle) - vec.y * sin(angle);
+	res.y = vec.x * sin(angle) + vec.y * cos(angle);
+	return res;
+}
+
+t_vec2f vec2f_add(t_vec2f a, t_vec2f b) {
+	a.x += b.x;
+	a.y += b.y;
+	return a;
+}
+
+int inside_wall(t_game* game, t_vec2f pos) {
+	int x = pos.x;
+	int y = pos.y;
+	if (x < 0 || y < 0 || x >= game->mapdata.map_w || y >= game->mapdata.map_h) {
+		return 0;
+	}
+	
+	return game->mapdata.map2d[y][x] == '1';
+}
+
+#define DELTA_ANGLE 0.1
+
+void	key_press(int key, void *game_void)
 {
 	t_game	*game;
 
 	game = game_void;
-	printf("keydata.key = %d\n", keydata.key);
-	game->player.rotate = 0;
-	
-	if (keydata.key == MLX_KEY_ESCAPE && (keydata.action == PRESS \
-		|| keydata.action == REPEAT))
+	printf("keydata.key = %d\n", key);
+
+	t_vec2f translation = vec2f(0,0);
+	t_vec2f speed = vec2f(0, -0.2);
+
+	if (key == MLX_KEY_ESCAPE)
 		ft_exit(game);
-	else if ((keydata.key == MLX_KEY_A) && (keydata.action == PRESS))
-		game->player.left_right = -1;
-	else if ((keydata.key == MLX_KEY_D) && (keydata.action == PRESS))
-		game->player.left_right = 1;
-	else if ((keydata.key == MLX_KEY_S) && (keydata.action == PRESS))
-		game->player.up_down = -1;
-	else if ((keydata.key == MLX_KEY_W) && (keydata.action == PRESS))
-		game->player.up_down = 1;
-	else if ((keydata.key == MLX_KEY_LEFT) && (keydata.action == PRESS))
-		game->player.rotate = -1;
-	else if ((keydata.key == MLX_KEY_RIGHT) && (keydata.action == PRESS))
-		game->player.rotate = 1;
-	key_release(keydata, game);
+	else if (key == 'a')
+		translation = rotate_vec(speed, game->player.angle - M_PI/2);
+	else if (key == 'd')
+		translation = rotate_vec(speed, game->player.angle + M_PI/2);
+	else if (key == 's')
+		translation = rotate_vec(speed, game->player.angle + M_PI);
+	else if (key == 'w')
+		translation = rotate_vec(speed, game->player.angle);
+	else if (key == 'k')
+		game->player.angle -= DELTA_ANGLE;
+	else if (key == 'l')
+		game->player.angle += DELTA_ANGLE;
+
+	t_vec2f pos = vec2f(game->player.player_x, game->player.player_y);
+	pos = vec2f_add(pos, translation);
+	if (!inside_wall(game, pos)) {
+		game->player.player_x = pos.x;
+		game->player.player_y = pos.y;
+		printf("move %f.2f %.2f \n", translation.x, translation.y);
+	} else {
+		printf("collision (would move to %.2f %.2f) (dx=%.2f dy=%.2f)!\n", pos.x, pos.y, translation.x, translation.y);
+	}
+
 	draw_map(game);
 }
-
-void	rotate(t_game *game, int i)
-{
-	if (i == 1)
-	{
-		game->player.angle += ROTATION_SPEED;
-		if (game->player.angle >= 2 * M_PI)
-			game->player.angle -= 2 * M_PI;
-	}
-	else
-	{
-		game->player.angle -= ROTATION_SPEED;
-		if (game->player.angle < 0)
-			game->player.angle += 2 * M_PI;
-	}
-}
-
-void	move(t_game *game, double move_x, double move_y)
-{
-	printf("move %f %f\n", move_x, move_y);
-	double	new_pos_x;
-	double	new_pos_y;
-	int		map_x;
-	int		map_y;
-
-	new_pos_x = game->player.player_x + move_x;
-	new_pos_y = game->player.player_y + move_y;
-	map_x = new_pos_x;
-	map_y = new_pos_y;
-	printf("px=%f py=%f x=%d y=%d\n", game->player.player_x, game->player.player_y, map_x, map_y);
-	if ((game->mapdata.map2d[map_y][map_x] != '1')
-		&& (game->mapdata.map2d[map_y][(int)game->player.player_x] != '1')
-		&& (game->mapdata.map2d[(int)game->player.player_y][map_x] != '1'))
-	{
-		game->player.player_x = new_pos_x;
-		game->player.player_y = new_pos_y;
-	}
-}
-// check  verifying that the player is not 
-//crossing walls horizontally or vertically based on the player's current tile coordinates.
-// Here's what each sq_map check does:
-
-//(game->mapdata.map_check[map_y][game->player.player_x / TILE_SIZE] != '1')
-//This check ensures that even if the player is within the correct y tile (map_grid_y),
-//there isn't a wall directly in the tile corresponding to the player's x coordinate. 
-//It checks the column derived from the player’s x position and the row from map_grid_y.
-
-//(game->mapdata.map_check[game->player.player_y / TILE_SIZE][map_x] != '1')
-//Similarly, this ensures that even if the player is within the correct x tile (map_grid_x),
-// there isn’t a wall in the tile corresponding to the player’s y coordinate. 
-//It checks the row derived from the player’s y position and the column from map_grid_x.
-
-void	hook_move_rotate(t_game *game, double move_x, double move_y)
-{
-	if (game->player.rotate == 1)
-		rotate(game, 1);
-	if (game->player.rotate == -1)
-		rotate(game, 0);
-	if (game->player.left_right == 1)
-	{
-		move_x = -sin(game->player.angle) * PLAYER_SPEED;
-		move_y = cos(game->player.angle) * PLAYER_SPEED;
-	}
-	if (game->player.left_right == -1)
-	{
-		move_x = sin(game->player.angle) * PLAYER_SPEED;
-		move_y = -cos(game->player.angle) * PLAYER_SPEED;
-	}
-	if (game->player.up_down == 1)
-	{
-		move_x = cos(game->player.angle) * PLAYER_SPEED;
-		move_y = sin(game->player.angle) * PLAYER_SPEED;
-	}
-	if (game->player.up_down == -1)
-	{
-		move_x = -cos(game->player.angle) * PLAYER_SPEED;
-		move_y = -sin(game->player.angle) * PLAYER_SPEED;
-	}
-	move(game, move_x, move_y);
-}
-

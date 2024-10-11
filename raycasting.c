@@ -6,7 +6,7 @@
 /*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 10:39:23 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/11 16:59:05 by helensirenk      ###   ########.fr       */
+/*   Updated: 2024/10/11 19:08:08 by helensirenk      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,8 @@ void	ray_casting(t_game *game)
 
 	ray_counter = 0;
 	game->player.fov_radians = FOV * M_PI / 180;
-	game->ray.ray_angle = game->player.angle \
-			- (game->player.fov_radians / 2);
+	printf("player angle %f\n", game->player.angle);
+	game->ray.ray_angle = game->player.angle - (game->player.fov_radians / 2);
 	while (ray_counter < SCREEN_WIDTH)
 	{
 		game->ray.flag = 0;
