@@ -68,7 +68,6 @@ int get_colour(t_game *game)
 void	draw_wall(t_game * game, int ray_counter, int t_pix, int b_pix)	// draw the wall
 {
 	int colour;
-	printf("top=%d bottom=%d\n", t_pix, b_pix);
 
 	colour = get_colour(game);
 	while (t_pix < b_pix)

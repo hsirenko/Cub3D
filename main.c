@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
+/*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:04:32 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/11 15:17:29 by kseniakarem      ###   ########.fr       */
+/*   Updated: 2024/10/11 18:01:50 by helensirenk      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

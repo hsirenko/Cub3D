@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_movements.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
+/*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 16:39:53 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/11 15:09:42 by kseniakarem      ###   ########.fr       */
+/*   Updated: 2024/10/11 18:32:26 by helensirenk      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ void	key_press(t_keydata keydata, void *game_void)
 	t_game	*game;
 
 	game = game_void;
+	printf("keydata.key = %d\n", keydata.key);
+	game->player.rotate = 0;
+	
 	if (keydata.key == MLX_KEY_ESCAPE && (keydata.action == PRESS \
 		|| keydata.action == REPEAT))
 		ft_exit(game);
@@ -70,10 +73,11 @@ void	rotate(t_game *game, int i)
 
 void	move(t_game *game, double move_x, double move_y)
 {
+	printf("move %f %f\n", move_x, move_y);
 	double	new_pos_x;
 	double	new_pos_y;
-	int	map_x;
-	int	map_y;
+	int		map_x;
+	int		map_y;
 
 	new_pos_x = game->player.player_x + move_x;
 	new_pos_y = game->player.player_y + move_y;
@@ -106,7 +110,7 @@ void	hook_move_rotate(t_game *game, double move_x, double move_y)
 {
 	if (game->player.rotate == 1)
 		rotate(game, 1);
-	else if (game->player.rotate == -1)
+	if (game->player.rotate == -1)
 		rotate(game, 0);
 	if (game->player.left_right == 1)
 	{
@@ -123,7 +127,7 @@ void	hook_move_rotate(t_game *game, double move_x, double move_y)
 		move_x = cos(game->player.angle) * PLAYER_SPEED;
 		move_y = sin(game->player.angle) * PLAYER_SPEED;
 	}
-	if (game->player. up_down == -1)
+	if (game->player.up_down == -1)
 	{
 		move_x = -cos(game->player.angle) * PLAYER_SPEED;
 		move_y = -sin(game->player.angle) * PLAYER_SPEED;

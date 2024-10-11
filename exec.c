@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
+/*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 18:26:21 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/11 15:14:53 by kseniakarem      ###   ########.fr       */
+/*   Updated: 2024/10/11 18:19:08 by helensirenk      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	draw_map(void *pixel)
 	t_game	*game;
 
 	game = pixel;
-	move(game, 0, 0);
+	hook_move_rotate(game, 0, 0);
 	ray_casting(game);
 }
 
@@ -37,6 +37,25 @@ static void	get_angle(t_game *game)
 	game->player.fov_radians = FOV * M_PI / 180;
 }
 
+// static void	get_angle(t_game *game)
+// {
+// 	char	direction;
+
+// 	//direction = game->mapdata.map2d[(int)game->player.player_y][(int)game->player.player_x];
+// 	direction = game->mapdata.map2d[game->mapdata.p_y][game->mapdata.p_x];
+// 	if (direction == 'N')
+// 		game->player.angle = 3 * M_PI / 2;
+// 	if (direction == 'S')
+// 		game->player.angle = M_PI / 2;
+// 	if (direction == 'E')
+// 		game->player.angle = 0;
+// 	if (direction == 'W')
+// 		game->player.angle = M_PI;
+// 	game->player.player_x = game->mapdata.p_x + (1 / 2);
+// 	game->player.player_y = game->mapdata.p_y + (1 / 2);
+// 	game->player.fov_radians = FOV * M_PI / 180;
+// }
+
 typedef int (*hook)(int, void*);
 typedef int (*loop_hook)(void*);
 
@@ -46,7 +65,6 @@ int	execution(t_game *game)
 	// check for loading textures;
 	get_angle(game);
 	mlx_key_hook(game->win, (hook)key_press, game);
-
 	// mlx_loop_hook(game->mlx, (loop_hook)draw_map, game);
 	mlx_loop(game->mlx);
 	ft_exit(game);

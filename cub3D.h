@@ -6,7 +6,7 @@
 /*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:05:28 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/11 14:52:02 by helensirenk      ###   ########.fr       */
+/*   Updated: 2024/10/11 18:32:30 by helensirenk      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,6 +212,8 @@ typedef struct s_mapdata
 {
 	char	**map2d;
 	char 	**map_check;
+	int 	p_x;
+	int		p_y;
 	int 	map_h;
 	int		map_w;
 	t_image north_wall;
