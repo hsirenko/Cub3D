@@ -66,25 +66,41 @@ int get_colour(t_game *game)
 	}
 }
 
+double	get_x_o(t_image	*texture, t_game *game)
+{
+	double	x_o;
+
+	if (game->ray.flag == 1)
+		x_o = (int)fmodf((game->ray.hrz_x * \
+		(texture->img_w / TILE_SIZE)), texture->img_w);
+	else
+		x_o = (int)fmodf((game->ray.vrt_y * \
+		(texture->img_w / TILE_SIZE)), texture->img_w);
+	return (x_o);
+}
+
+unsigned int my_mlx_pixel_get(t_image img, int x, int y) {
+	int bits_per_pixel, line_size, endian;
+	char* addr = mlx_get_data_addr(img.img, &bits_per_pixel, &line_size, &endian);
+	return *(unsigned int*)(&addr[y * line_size + x * bits_per_pixel / 8]);
+}
+
 void	draw_wall(t_game * game, int ray_counter, int t_pix, int b_pix, double wall_h)	// draw the wall
 {
 	double			x_o;
 	double			y_o;
-	mlx_texture_t	*texture;
-	uint32_t		*arr;
+	t_image	*texture;
 	double			factor;
 
-	texture = get_texture(mlx, mlx->ray->flag);
-	arr = (uint32_t *)texture->pixels;
-	factor = (double)texture->height / wall_h;
-	x_o = get_x_o(texture, mlx);
-	y_o = (t_pix - (S_H / 2) + (wall_h / 2)) * factor;
+	texture = get_texture(game);
+	factor = (double)texture->img_h / wall_h;
+	x_o = get_x_o(texture, game);
+	y_o = (t_pix - (SCREEN_HEIGHT / 2) + (wall_h / 2)) * factor;
 	if (y_o < 0)
 		y_o = 0;
 	while (t_pix < b_pix)
 	{
-		my_mlx_pixel_put(mlx, mlx->ray->index, t_pix, reverse_bytes \
-		(arr[(int)y_o * texture->width + (int)x_o]));
+		my_mlx_pixel_put(&game->img, ray_counter, t_pix, my_mlx_pixel_get(*texture, x_o, y_o));
 		y_o += factor;
 		t_pix++;
 	}
@@ -106,6 +122,6 @@ void render_wall(t_game *game, int ray_counter) // render the wall
 		b_pix = SCREEN_HEIGHT;
 	if (t_pix < 0) // check the top pixel
 		t_pix = 0;
-	draw_floor_ceiling(game, ray_counter, t_pix, b_pix, wall_h); // draw the floor and the ceiling
-	draw_wall(game, ray_counter, t_pix, b_pix); // draw the wall
+	draw_floor_ceiling(game, ray_counter, t_pix, b_pix); // draw the floor and the ceiling
+	draw_wall(game, ray_counter, t_pix, b_pix, wall_h); // draw the wall
 }
