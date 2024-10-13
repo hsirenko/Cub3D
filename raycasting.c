@@ -6,129 +6,152 @@
 /*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 10:39:23 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/11 14:12:11 by kseniakarem      ###   ########.fr       */
+/*   Updated: 2024/10/13 18:40:08 by kseniakarem      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-int	hit_the_wall(float x, float y, t_game *game)
-{
-	int	map_y;
-	int	map_x;
-
-	if (x < 0 || y < 0)
-		return (0);
-	map_y = floor(y / TILE_SIZE);
-	map_x = floor(x / TILE_SIZE);
-	if (map_y >= game->mapdata.map_h || map_x >= game->mapdata.map_w)
-		return (0);
-	if (game->mapdata.map2d[map_y][map_x] == '1')
-		return (0);
-	return (1);
+t_vec2f unit_direction_vector(float angle) {
+	return rotate_vec(vec2f(0, -1), angle);
 }
 
-static int	check_inters(float angle, float *inters, float *step, int is_horz)
-{
-	if (is_horz)
-	{
-		if (angle > 0 && angle < M_PI)
-		{
-			*inters += TILE_SIZE;
-			return (-1);
-		}
-		*step *= -1;
-	}
-	else
-	{
-		if (!(angle > (M_PI / 2) && angle > (3 * M_PI / 2)))
-		{
-			*inters += TILE_SIZE;
-			return (-1);
-		}
-		*step *= -1;
-	}
-	return (1);
+t_vec2f first_horizontal_intersection(t_ray ray) {
+	t_vec2f direction = unit_direction_vector(ray.angle);
+	t_vec2f res;
+	res.y = floor(ray.origin.y);
+	if (direction.y == 0)
+		return ray.origin;
+	if (direction.y > 0)
+		res.y++;
+	res.x = ray.origin.x + (res.y - ray.origin.y) * direction.x / direction.y;
+	return res;
 }
 
-static float	get_hor_inters(t_game *game, float angle)
-{
-	int		direction;
-	float	hor_x;
-	float	hor_y;
-	float	step_x;
-	float	step_y;
-
-	direction = check_inters(angle, &hor_y, &step_y, 1);
-	step_x = TILE_SIZE / tan(angle);
-	step_y = TILE_SIZE;
-	hor_y = floor(game->player.player_y / TILE_SIZE) * TILE_SIZE;
-	hor_x = game->player.player_x
-		+ (hor_y - game->player.player_y) / tan(angle);
-	while (hit_the_wall(hor_x, hor_y - direction, game))
-	{
-		hor_x += step_x;
-		hor_y += step_y;
-	}
-	game->ray.hrz_y = hor_y;
-	game->ray.hrz_x = hor_x;
-	return (sqrt(pow(hor_x - game->player.player_x, 2)
-			+ pow(hor_y - game->player.player_y, 2)));
+t_vec2f first_vertical_intersection(t_ray ray) {
+	t_vec2f direction = unit_direction_vector(ray.angle);
+	t_vec2f res;
+	res.x = floor(ray.origin.x);
+	if (direction.x == 0)
+		return ray.origin;
+	if (direction.x > 0)
+		res.x++;
+	res.y = ray.origin.y + (res.x - ray.origin.x) * direction.y / direction.x;
+	return res;
 }
 
-static float	get_vert_inters(t_game *game, float angle)
-{
-	int		direction;
-	float	vert_x;
-	float	vert_y = 0;
-	float	step_x;
-	float	step_y;
+t_vec2f horizontal_step(t_ray ray) {
+	t_vec2f dir = unit_direction_vector(ray.angle);
+	if (dir.y == 0)
+		return vec2f(dir.x, 0);
+	dir.x /= fabs(dir.y);
+	dir.y /= fabs(dir.y);
+	return dir;
+}
 
-	vert_y = 0.0;
-	direction = check_inters(angle, &vert_x, &step_x, 0);
-	step_x = TILE_SIZE;
-	step_y = TILE_SIZE * tan(angle);
-	vert_x = floor(game->player.player_x / TILE_SIZE) * TILE_SIZE;
-	vert_y = game->player.player_y
-		+ (vert_y - game->player.player_x) / tan(angle);
-	if ((unit_circle(angle, 'y') && step_x > 0)
-		|| (!unit_circle(angle, 'x') && step_x < 0))
-		step_x *= -1;
-	while (hit_the_wall(vert_x - direction, vert_y, game))
-	{
-		vert_x += step_x;
-		vert_y += step_y;
+t_vec2f vertical_step(t_ray ray) {
+	t_vec2f dir = unit_direction_vector(ray.angle);
+	if (dir.x == 0)
+		return vec2f(0, dir.y);
+	dir.y /= fabs(dir.x);
+	dir.x /= fabs(dir.x);
+	return dir;
+}
+
+t_vec2f vec2f_mulf(t_vec2f v, float f) {
+	v.x *= f;
+	v.y *= f;
+	return v;
+}
+
+t_direction detect_face(t_vec2f step) {
+	if (step.x == 1)
+		return DIRECTION_WEST;
+	if (step.x == -1)
+		return DIRECTION_EAST;
+	if (step.y == 1)
+		return DIRECTION_SOUTH;
+	return DIRECTION_NORTH;
+}
+
+float distance(t_vec2f a, t_vec2f b) {
+	return hypot(a.x - b.x, a.y - b.y);
+}
+
+float get_local_x(t_vec2f point, t_direction face) {
+	if (face == DIRECTION_EAST)
+		return ceil(point.y) - point.y;
+	if (face == DIRECTION_WEST)
+		return point.y - floor(point.y);
+	if (face == DIRECTION_SOUTH)
+		return point.x - floor(point.x);
+	return ceil(point.x) - point.y;
+}
+
+t_hit hit(t_ray ray, t_vec2f point, t_vec2f step) {
+	t_hit hit;
+	hit.angle = ray.angle;
+	hit.distance = distance(point, ray.origin);
+	hit.face = detect_face(step);
+	hit.hit = 1;
+	hit.local_x = get_local_x(point, hit.face);
+	return hit;
+}
+
+t_hit no_hit() {
+	t_hit hit;
+	hit.hit = 0;
+	hit.distance = 10000000;
+	hit.face = DIRECTION_NORTH;
+	hit.angle = 0;
+	hit.local_x = 0;
+	return hit;
+}
+
+t_hit cast(t_mapdata* map, t_ray ray, t_vec2f start, t_vec2f step) {
+	t_vec2f pos = start;
+	int i = 0;
+	while(i < map->map_h || i < map->map_w) {
+		if (inside_wall(map, vec2f_add(pos, vec2f_mulf(step, 1e-6))))
+			return  hit(ray, pos, step);
+		pos = vec2f_add(pos, step);
+		i++;
 	}
-	game->ray.vrt_x = vert_x;
-	game->ray.vrt_y = vert_y;
-	return (sqrt(pow(vert_x - game->player.player_x, 2)
-			+ pow(vert_y - game->player.player_y, 2)));
+	return no_hit();
+}
+
+t_hit cast_ray(t_mapdata* map, t_ray ray) {
+	t_hit hor_hit = cast(map, ray, first_horizontal_intersection(ray), horizontal_step(ray));
+	t_hit ver_hit = cast(map, ray, first_vertical_intersection(ray), vertical_step(ray));
+	
+	if (!hor_hit.hit && !ver_hit.hit)
+		return no_hit();
+	if (!hor_hit.hit)
+		return ver_hit;
+	if (!ver_hit.hit)
+		return hor_hit;
+	if (hor_hit.distance < ver_hit.distance) 
+		return hor_hit;
+	return ver_hit;
 }
 
 void	ray_casting(t_game *game)
 {
-	double	hor_inters;
-	double	ver_inters;
 	int		ray_counter;
 
 	ray_counter = 0;
 	game->player.fov_radians = FOV * M_PI / 180;
-	game->ray.ray_angle = game->player.angle - (game->player.fov_radians / 2);
+
+	t_ray ray;
+	ray.origin = vec2f(game->player.player_x, game->player.player_y);
+	ray.angle = game->player.angle - (game->player.fov_radians / 2);
+	
 	while (ray_counter < SCREEN_WIDTH)
 	{
-		game->ray.flag = 0;
-		hor_inters = get_hor_inters(game, nor_angle(game->ray.ray_angle));
-		ver_inters = get_vert_inters(game, nor_angle(game->ray.ray_angle));
-		if (hor_inters >= ver_inters)
-			game->ray.dist = ver_inters;
-		else
-		{
-			game->ray.dist = hor_inters;
-			game->ray.flag = 1;
-		}
-		render_wall(game,ray_counter);
+		t_hit hit = cast_ray(&game->mapdata, ray);
+		render_wall(game, ray_counter, hit);
 		ray_counter++;
-		game->ray.ray_angle += (game->player.fov_radians / SCREEN_WIDTH);
+		ray.angle += (game->player.fov_radians / SCREEN_WIDTH);
 	}
-
+    mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
 }

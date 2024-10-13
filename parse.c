@@ -55,11 +55,10 @@ char* trim_str(int len, char* str) {
 }
 
 
-int parse_path(char* direction, char **inp_string, t_image* img)
+int parse_path(void* mlx, char* direction, char **inp_string, t_image* img)
 {
     char *path;
     char *end_path;
-    void	*mlx;
 
     if (!find_prefix(direction, *inp_string))
         return 0;
@@ -67,9 +66,9 @@ int parse_path(char* direction, char **inp_string, t_image* img)
     end_path = ft_strchr(*inp_string, '\n');
     path = ft_substr(*inp_string,0,(end_path-*inp_string));
     *inp_string = trim_str(ft_strlen(path) + 1, *inp_string);
-	mlx = mlx_init();
-    img->img = mlx_xpm_file_to_image(mlx,path, &img->img_w, &img->img_h);
-	if(!img->img) {
+    // printf("mlx=%p path_ptr=%p path=%s img=%p\n", mlx, path, path, img);
+    img->img = mlx_xpm_file_to_image(mlx, path, &img->img_w, &img->img_h);
+    if(!img->img) {
         return(0);
     }
     return(1);
@@ -77,16 +76,16 @@ int parse_path(char* direction, char **inp_string, t_image* img)
 
 int get_wall_img( t_game* game, char **inp_string)
 {
-    int no = parse_path("NO ", inp_string, &game->mapdata.north_wall);
+    int no = parse_path(game->mlx, "NO ", inp_string, &game->mapdata.north_wall);
     if (!no)
         return 0;
-    int so = parse_path("SO ", inp_string, &game->mapdata.south_wall);
+    int so = parse_path(game->mlx, "SO ", inp_string, &game->mapdata.south_wall);
     if (!so)
         return 0;
-    int we = parse_path("WE ", inp_string, &game->mapdata.west_wall);
+    int we = parse_path(game->mlx, "WE ", inp_string, &game->mapdata.west_wall);
     if (!we)
         return 0;
-    int ea = parse_path("EA ", inp_string, &game->mapdata.east_wall);
+    int ea = parse_path(game->mlx, "EA ", inp_string, &game->mapdata.east_wall);
     if (!ea)
         return 0;
     return 1;
@@ -268,8 +267,8 @@ int fill_map(t_game *game, char* src)
         if (!check(src[c], " 01")) {
             gamer_count++;
             gamer = src[c];
-            game->player.player_x = j;
-            game->player.player_y = i;
+            game->player.player_x = j + 0.5;
+            game->player.player_y = i + 0.5;
         }
         j++;
         c++;
@@ -337,5 +336,5 @@ void init_struct_game(t_game *game, char * file_name)
         panic("map has holes");
     }
 
-    printf("map parsed width=%d height=%d\n", game->mapdata.map_w, game->mapdata.map_h);
+    // printf("map parsed width=%d height=%d\n", game->mapdata.map_w, game->mapdata.map_h);
 }
