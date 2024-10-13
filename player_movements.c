@@ -3,19 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   player_movements.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
+/*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 16:39:53 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/11 19:06:30 by helensirenk      ###   ########.fr       */
+/*   Updated: 2024/10/13 17:36:31 by kseniakarem      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-typedef struct s_vec2f {
-	float x;
-	float y;
-} t_vec2f;
 
 t_vec2f vec2f(float x, float y) {
 	t_vec2f vec;
