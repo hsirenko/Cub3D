@@ -6,7 +6,7 @@
 /*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:05:28 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/13 17:42:38 by kseniakarem      ###   ########.fr       */
+/*   Updated: 2024/10/13 18:09:01 by kseniakarem      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,7 +245,7 @@ t_vec2f vec2f_add(t_vec2f a, t_vec2f b);
 
 typedef struct s_ray
 {
-	t_vec2f start;
+	t_vec2f origin;
 	// angle between (0, -1) (North direction) and the ray
 	double angle;
 }	t_ray;
@@ -275,6 +275,8 @@ typedef struct s_game
 	t_player	player;
 	t_key 		keydata;
 }	t_game;
+
+int inside_wall(t_mapdata* map, t_vec2f pos);
 
 //raycasting
 int		hit_the_wall(float x, float y, t_game *game);

@@ -6,7 +6,7 @@
 /*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 16:39:53 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/13 17:36:31 by kseniakarem      ###   ########.fr       */
+/*   Updated: 2024/10/13 18:20:09 by kseniakarem      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ t_vec2f vec2f_add(t_vec2f a, t_vec2f b) {
 	return a;
 }
 
-int inside_wall(t_game* game, t_vec2f pos) {
+int inside_wall(t_mapdata* map, t_vec2f pos) {
 	int x = pos.x;
 	int y = pos.y;
-	if (x < 0 || y < 0 || x >= game->mapdata.map_w || y >= game->mapdata.map_h) {
+	if (x < 0 || y < 0 || x >= map->map_w || y >= map->map_h) {
 		return 0;
 	}
 	
-	return game->mapdata.map2d[y][x] == '1';
+	return map->map2d[y][x] == '1';
 }
 
 #define DELTA_ANGLE 0.1
@@ -72,7 +72,7 @@ void	key_press(int key, void *game_void)
 
 	t_vec2f pos = vec2f(game->player.player_x, game->player.player_y);
 	pos = vec2f_add(pos, translation);
-	if (!inside_wall(game, pos)) {
+	if (!inside_wall(&game->mapdata, pos)) {
 		game->player.player_x = pos.x;
 		game->player.player_y = pos.y;
 		printf("move %f.2f %.2f \n", translation.x, translation.y);
