@@ -6,7 +6,7 @@
 /*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 10:39:23 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/13 18:19:57 by kseniakarem      ###   ########.fr       */
+/*   Updated: 2024/10/13 18:21:26 by kseniakarem      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ t_hit cast(t_mapdata* map, t_ray ray, t_vec2f start, t_vec2f step) {
 	t_vec2f pos = start;
 	int i = 0;
 	while(i < map->map_h || i < map->map_w) {
-		if (inside_wall(map, vec2f_add(pos, vec2f_mulf(step, 0.001))))
+		if (inside_wall(map, vec2f_add(pos, vec2f_mulf(step, 1e-6))))
 			return  hit(ray, pos, step);
 		pos = vec2f_add(pos, step);
 		i++;
