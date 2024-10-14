@@ -1,28 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   vector_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/16 14:04:32 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/14 20:27:04 by helensirenk      ###   ########.fr       */
+/*   Created: 2024/10/14 20:35:56 by helensirenk       #+#    #+#             */
+/*   Updated: 2024/10/14 20:36:22 by helensirenk      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-int	main(int argc, char **argv)
+t_vec2f	vec2f(float x, float y)
 {
-	t_game	game;
+	t_vec2f	vec;
 
-	(void)argc;
-	game.mlx = mlx_init();
-	game.win = mlx_new_window(game.mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "Cub3D");
-	init_struct_game(&game, argv[1]);
-	game.img.img = mlx_new_image(game.mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-	game.img.addr = mlx_get_data_addr(game.img.img, &game.img.bpp,
-			&game.img.line_length, &game.img.endian);
-	execution(&game);
-	return (0);
+	vec.x = x;
+	vec.y = y;
+	return (vec);
+}
+
+t_vec2f	rotate_vec(t_vec2f vec, float angle)
+{
+	t_vec2f	res;
+
+	res.x = vec.x * cos(angle) - vec.y * sin(angle);
+	res.y = vec.x * sin(angle) + vec.y * cos(angle);
+	return (res);
+}
+
+t_vec2f	vec2f_add(t_vec2f a, t_vec2f b)
+{
+	a.x += b.x;
+	a.y += b.y;
+	return (a);
 }
