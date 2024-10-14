@@ -6,7 +6,7 @@
 /*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 10:53:44 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/14 18:45:25 by helensirenk      ###   ########.fr       */
+/*   Updated: 2024/10/14 19:05:56 by helensirenk      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	unit_circle(float angle, char c)
 	return (0);
 }
 
-float nor_angle(float angle) // normalize the angle
+float	nor_angle(float angle)
 {
 	if (angle < 0)
 		angle += (2 * M_PI);

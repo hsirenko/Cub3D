@@ -6,7 +6,7 @@
 /*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:05:28 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/14 16:16:38 by helensirenk      ###   ########.fr       */
+/*   Updated: 2024/10/14 20:37:19 by helensirenk      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
-#include <fcntl.h>
+# include <fcntl.h>
 
 # define MAP_WIDTH 24
 # define MAP_HEIGHT 24
@@ -28,6 +28,7 @@
 # define FOV 60
 # define ROTATION_SPEED 0.05
 # define PLAYER_SPEED 3
+# define DELTA_ANGLE 0.1
 
 /*COLORS*/
 # define BLACK   0x000000
@@ -46,6 +47,9 @@
 # define PSYCHEDELIC_CYAN    0x00FFFF
 # define PSYCHEDELIC_YELLOW  0xFFFF00
 # define PSYCHEDELIC_PURPLE  0x9400D3
+
+typedef int	(*t_hook)(int, void*);
+typedef int	(*t_loop_hook)(void*);
 
 typedef enum action
 {
@@ -66,51 +70,43 @@ typedef struct s_img
 
 typedef struct s_image
 {
-	void *img;
-	int img_h;
-	int img_w;
-} t_image;
+	void	*img;
+	int		img_h;
+	int		img_w;
+}	t_image;
 
 typedef struct s_mapdata
 {
 	char	**map2d;
-	char 	**map_check;
-	int 	p_x;
+	char	**map_check;
+	int		p_x;
 	int		p_y;
-	int 	map_h;
+	int		map_h;
 	int		map_w;
-	t_image north_wall;
-	t_image south_wall;
-	t_image east_wall;
-	t_image west_wall;
+	t_image	north_wall;
+	t_image	south_wall;
+	t_image	east_wall;
+	t_image	west_wall;
 }	t_mapdata;
-
 
 typedef struct s_player
 {
 	double		player_x;
 	double		player_y;
-	char	start_orient;
-	double	angle;
-	float	fov_radians;
+	char		start_orient;
+	double		angle;
+	float		fov_radians;
 }	t_player;
 
-
 typedef struct s_vec2f {
-	float x;
-	float y;
-} t_vec2f;
-
-
-t_vec2f vec2f(float x, float y);
-t_vec2f rotate_vec(t_vec2f vec, float angle);
-t_vec2f vec2f_add(t_vec2f a, t_vec2f b);
+	float	x;
+	float	y;
+}	t_vec2f;
 
 typedef struct s_ray
 {
-	t_vec2f origin;
-	// angle between (0, -1) (North direction) and the ray
-	double angle;
+	t_vec2f	origin;
+	double	angle;
 }	t_ray;
 
 typedef enum e_direction {
@@ -118,15 +114,15 @@ typedef enum e_direction {
 	DIRECTION_SOUTH,
 	DIRECTION_WEST,
 	DIRECTION_EAST,
-} t_direction;
+}	t_direction;
 
 typedef struct s_hit {
-	int hit;
-	double distance;
-	t_direction face;
-	float angle;
-	float local_x;
-} t_hit;
+	int			hit;
+	double		distance;
+	t_direction	face;
+	float		angle;
+	float		local_x;
+}	t_hit;
 
 typedef struct s_game
 {
@@ -139,42 +135,65 @@ typedef struct s_game
 	t_player	player;
 }	t_game;
 
-typedef enum e_key {
+typedef enum e_key
+{
 	KEY_ESC = 65307,
 	KEY_UP = 65362,
 	KEY_RIGHT = 65363,
 	KEY_DOWN = 65364,
 	KEY_LEFT = 65361,
-}
-t_key;
+}	t_key;
 
-int inside_wall(t_mapdata* map, t_vec2f pos);
+int			inside_wall(t_mapdata *map, t_vec2f pos);
 
 //raycasting
-int		hit_the_wall(float x, float y, t_game *game);
-void	ray_casting(t_game *game);
-void render_wall(t_game *game, int ray_counter, t_hit hit);
+t_vec2f		vec2f(float x, float y);
+t_vec2f		rotate_vec(t_vec2f vec, float angle);
+t_vec2f		vec2f_add(t_vec2f a, t_vec2f b);
+
+t_direction	detect_face(t_vec2f step);
+t_vec2f		first_hor_inters(t_ray ray);
+t_vec2f		first_vert_inters(t_ray ray);
+t_vec2f		hor_step(t_ray ray);
+t_vec2f		vert_step(t_ray ray);
+t_vec2f		unit_dir_vector(float angle);
+t_vec2f		vec2f_mulf(t_vec2f v, float f);
+float		distance(t_vec2f a, t_vec2f b);
+float		get_local_x(t_vec2f point, t_direction face);
+t_hit		hit(t_ray ray, t_vec2f point, t_vec2f step);
+t_hit		no_hit(void);
+t_hit		cast(t_mapdata *map, t_ray ray, t_vec2f start, t_vec2f step);
+t_hit		cast_ray(t_mapdata *map, t_ray ray);
+void		ray_casting(t_game *game);
+
+int			hit_the_wall(float x, float y, t_game *game);
+void		render_wall(t_game *game, int ray_counter, t_hit hit);
 
 //player movements
-void key_press(int key, void *game_void);
-void rotate(t_game *game, int i);
-void	move(t_game *game, double move_x, double move_y);
-void	hook_move_rotate(t_game *game, double move_x, double move_y);
+void		key_press(int key, void *game_void);
+void		rotate(t_game *game, int i);
+void		move(t_game *game, double move_x, double move_y);
+void		hook_move_rotate(t_game *game, double move_x, double move_y);
+void		handle_key_input(int key, t_game *game, t_vec2f *translation);
 
 //utils
-size_t	ft_strlen(const char *str);
-int		unit_circle(float angle, char c);
-float	nor_angle(float angle);
-void my_mlx_pixel_put(t_img* img, int x, int y, int color);
-void ft_exit(t_game *game);
+int			unit_circle(float angle, char c);
+float		nor_angle(float angle);
+void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
+void		ft_exit(t_game *game);
 
 // parsing
-void init_struct_game(t_game *game, char * file_name);
-void draw_floor_ceiling(t_game *game, int ray_counter, int t_pix, int b_pix);
-int has_holes(t_mapdata map, t_player player);
+void		init_struct_game(t_game *game, char *file_name);
+void		draw_floor_ceiling(t_game *game, int ray_counter, int t_pix, int b_pix);
+int			has_holes(t_mapdata map, t_player player);
 
 //exec
-int	execution(t_game *game);
-void	draw_map(void *pixel);
+int			execution(t_game *game);
+void		draw_map(void *pixel);
+
+//vector_utils
+t_vec2f		vec2f(float x, float y);
+t_vec2f		rotate_vec(t_vec2f vec, float angle);
+t_vec2f		vec2f_add(t_vec2f a, t_vec2f b);
 
 #endif
