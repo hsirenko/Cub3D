@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
+/*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 18:26:21 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/13 17:25:39 by kseniakarem      ###   ########.fr       */
+/*   Updated: 2024/10/14 17:57:41 by helensirenk      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ int	execution(t_game *game)
 	// check to see if the map within the limits, and if not, free the map;
 	// check for loading textures;
 	get_angle(game);
-	mlx_key_hook(game->win, (hook)key_press, game);
+	mlx_key_hook(game->win, (hook)(&key_press), game);
+	mlx_hook(game->win, 17, 0, (hook)(&ft_exit), game);
 	// mlx_loop_hook(game->mlx, (loop_hook)draw_map, game);
 	draw_map(game);
 	mlx_loop(game->mlx);
