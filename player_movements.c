@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_movements.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
+/*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 16:39:53 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/13 18:42:33 by kseniakarem      ###   ########.fr       */
+/*   Updated: 2024/10/14 16:16:00 by helensirenk      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	key_press(int key, void *game_void)
 	t_vec2f translation = vec2f(0,0);
 	t_vec2f speed = vec2f(0, -0.2);
 
-	if (key == MLX_KEY_ESCAPE)
+	if (key == KEY_ESC)
 		ft_exit(game);
 	else if (key == 'a')
 		translation = rotate_vec(speed, game->player.angle - M_PI/2);
@@ -63,9 +63,9 @@ void	key_press(int key, void *game_void)
 		translation = rotate_vec(speed, game->player.angle + M_PI);
 	else if (key == 'w')
 		translation = rotate_vec(speed, game->player.angle);
-	else if (key == 'k')
+	else if (key == KEY_LEFT)
 		game->player.angle -= DELTA_ANGLE;
-	else if (key == 'l')
+	else if (key == KEY_RIGHT)
 		game->player.angle += DELTA_ANGLE;
 
 	t_vec2f pos = vec2f(game->player.player_x, game->player.player_y);

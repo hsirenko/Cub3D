@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
+/*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 10:53:44 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/07 17:44:58 by kseniakarem      ###   ########.fr       */
+/*   Updated: 2024/10/14 18:45:25 by helensirenk      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,11 @@ float nor_angle(float angle) // normalize the angle
 
 void	ft_exit(t_game *game)
 {
-	//mlx_destroy_image(game->mlx, game->img);
-	mlx_destroy_display(game->mlx);
+	mlx_destroy_image(game->mlx, game->img.img);
 	mlx_destroy_window(game->mlx, game->win);
+	mlx_loop_end(game->mlx);
+	mlx_destroy_display(game->mlx);
+	free(game->mlx);
 	printf("Game is closed\n");
 	exit(0);
 }

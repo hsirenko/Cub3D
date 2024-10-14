@@ -6,6 +6,7 @@ SRC = main.c parse.c raycasting.c utils.c render.c stack.c exec.c player_movemen
 OBJ = $(SRC:.c=.o)
 HEADER = $(NAME).h
 INCLUDES += -Ilibft -Iminilibx
+CC = clang
 
 all: $(NAME)
 
@@ -16,10 +17,10 @@ minilibx/libmlx.a:
 	make -C minilibx
 
 %.o: %.c $(HEADER)
-	cc -o $@ $(CFLAGS) $(INCLUDES) -c  $<
+	$(CC) -o $@ $(CFLAGS) $(INCLUDES) -c  $<
 
 $(NAME): $(OBJ) $(HEADER) libft/libft.a minilibx/libmlx.a
-	cc $(OBJ) libft/libft.a minilibx/libmlx.a -L /usr/X11/lib -lXext -lX11 -lm -lz  -o $(NAME)
+	$(CC) $(OBJ) libft/libft.a minilibx/libmlx.a -L /usr/X11/lib -lXext -lX11 -lm -lz  -o $(NAME)
 
 clean:
 	rm -f $(OBJ)
