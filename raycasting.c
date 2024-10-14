@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
+/*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 10:39:23 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/13 18:21:26 by kseniakarem      ###   ########.fr       */
+/*   Updated: 2024/10/14 15:23:45 by helensirenk      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
