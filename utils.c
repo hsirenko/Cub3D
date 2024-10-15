@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
+/*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 10:53:44 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/14 19:05:56 by helensirenk      ###   ########.fr       */
+/*   Updated: 2024/10/15 16:38:08 by kseniakarem      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,24 @@ void	ft_exit(t_game *game)
 	free(game->mlx);
 	printf("Game is closed\n");
 	exit(0);
+}
+
+char	*cut_string(char *string, int n)
+{
+	char	*part;
+	int		i;
+
+	part = ft_calloc(n, sizeof(char));
+	i = 0;
+	while (i < n)
+	{
+		part[i] = string[i];
+		i++;
+	}
+	return (part);
+}
+
+void	panic(char *msg)
+{
+	printf("Error: %s\n", msg);
 }

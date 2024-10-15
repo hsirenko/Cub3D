@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
+/*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:05:28 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/14 20:37:19 by helensirenk      ###   ########.fr       */
+/*   Updated: 2024/10/15 16:32:09 by kseniakarem      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,13 @@ typedef enum e_direction {
 	DIRECTION_EAST,
 }	t_direction;
 
+typedef struct s_string
+{
+	int		len;
+	int		cap;
+	char	*data;
+}			t_string;
+
 typedef struct s_hit {
 	int			hit;
 	double		distance;
@@ -143,6 +150,34 @@ typedef enum e_key
 	KEY_DOWN = 65364,
 	KEY_LEFT = 65361,
 }	t_key;
+
+typedef struct s_pix
+{
+	double	b_pix;
+	double	t_pix;
+}t_pix;
+
+typedef struct s_parser_state{
+	int i;
+    int j;
+    int c;
+    int player_count;
+    char* src;
+    char player;
+} t_parser_state;
+
+typedef struct s_coord
+{
+	int		x;
+	int		y;
+}			t_coord;
+
+typedef struct s_stack
+{
+	int		len;
+	int		cap;
+	t_coord	*data;
+}			t_stack;
 
 int			inside_wall(t_mapdata *map, t_vec2f pos);
 
@@ -181,10 +216,10 @@ int			unit_circle(float angle, char c);
 float		nor_angle(float angle);
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void		ft_exit(t_game *game);
+char	*cut_string(char *string, int n);
+void	panic(char *msg);
 
-// parsing
-void		init_struct_game(t_game *game, char *file_name);
-void		draw_floor_ceiling(t_game *game, int ray_counter, int t_pix, int b_pix);
+// check_map
 int			has_holes(t_mapdata map, t_player player);
 
 //exec
@@ -195,5 +230,47 @@ void		draw_map(void *pixel);
 t_vec2f		vec2f(float x, float y);
 t_vec2f		rotate_vec(t_vec2f vec, float angle);
 t_vec2f		vec2f_add(t_vec2f a, t_vec2f b);
+
+//parsing
+t_string	string_with_capacity(int cap);
+t_string	string_grow(t_string s, int new_cap);
+int	get_map_height(char *inp_string);
+int	get_map_width(char *inp_string);
+int	check(char c, char *str);
+void	find_angle_view(t_game *game, const char c);
+char	*read_file(int fd);
+int	fill_map(t_game *game, char *src);
+int	get_map(t_game *game, char **inp_string);
+int	parse(t_game *game, int fd);
+void	init_struct_game(t_game *game, char *file_name);
+int	parse_byte_n(char *s, int n);
+int	index_of(char *s, char c);
+int	read_color(char **str, char sep);
+int	read_colors(char **str);
+int	get_colors(t_game *game, char **inp_string);
+int	find_prefix(char *prefix, char *string);
+char	*trim_str(int len, char *str);
+int	parse_path(void *mlx, char *direction, char **inp_string, t_image *img);
+int	get_wall_img(t_game *game, char **inp_string);
+int	check_gamer(char gamer, int gamer_count);
+t_parser_state new_parser_state(char* src);
+int has_chars(t_parser_state s);
+int parse_newline(t_parser_state* s);
+int parse_newline(t_parser_state* s);
+void advance(t_parser_state* s);
+char current_char(t_parser_state s);
+int parse_player(t_parser_state* s);
+void parse_wall_or_player(t_parser_state* s, t_game* game);
+
+
+//render
+t_image	*get_texture(t_game *game, t_direction face);
+int	get_colour(t_direction face);
+unsigned int	my_mlx_pixel_get(t_image img, int x, int y);
+void	render_wall(t_game *game, int ray_counter, t_hit hit);
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+void	draw_floor_ceiling(t_game *game, int ray_counter, t_pix pix);
+
+
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
+/*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 20:09:54 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/14 20:10:17 by helensirenk      ###   ########.fr       */
+/*   Updated: 2024/10/15 14:11:53 by kseniakarem      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,5 @@ float	get_local_x(t_vec2f point, t_direction face)
 		return (point.y - floor(point.y));
 	if (face == DIRECTION_SOUTH)
 		return (point.x - floor(point.x));
-	return (ceil(point.x) - point.y);
+	return (ceil(point.x) - point.x);
 }
