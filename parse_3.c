@@ -6,7 +6,7 @@
 /*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 16:28:04 by kseniakarem       #+#    #+#             */
-/*   Updated: 2024/10/15 17:27:21 by kseniakarem      ###   ########.fr       */
+/*   Updated: 2024/10/15 17:47:36 by kseniakarem      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,10 @@ void	parse_wall_or_player(t_parser_state *s, t_game *game)
 		game->player.player_y = s->i + 0.5;
 	}
 	advance(s);
+}
+
+void	advance(t_parser_state *s)
+{
+	s->j++;
+	s->c++;
 }
