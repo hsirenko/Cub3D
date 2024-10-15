@@ -6,7 +6,7 @@
 /*   By: hsirenko <hsirenko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:05:28 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/15 18:11:16 by hsirenko         ###   ########.fr       */
+/*   Updated: 2024/10/15 18:41:19 by hsirenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,7 +221,7 @@ float			nor_angle(float angle);
 void			my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void			ft_exit(t_game *game);
 char			*cut_string(char *string, int n);
-void			panic(char *msg, t_game *game);
+void			panic(char *msg);
 
 // check_map
 int				has_holes(t_mapdata map, t_player player);

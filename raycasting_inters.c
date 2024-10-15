@@ -6,7 +6,7 @@
 /*   By: hsirenko <hsirenko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 19:41:28 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/15 18:38:28 by hsirenko         ###   ########.fr       */
+/*   Updated: 2024/10/15 19:01:59 by hsirenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,9 @@ t_vec2f	hor_step(t_ray ray)
 	dir = unit_dir_vector(ray.angle);
 	if (dir.y == 0)
 		return (vec2f(dir.x, 0));
-	dir.x /= fabs(dir.y);
 	dir = unit_dir_vector(ray.angle);
+	dir.x /= fabs(dir.y);
+	dir.y /= fabs(dir.y);
 	return (dir);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stack.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
+/*   By: hsirenko <hsirenko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 19:19:13 by kseniakarem       #+#    #+#             */
-/*   Updated: 2024/10/15 17:32:23 by kseniakarem      ###   ########.fr       */
+/*   Updated: 2024/10/15 18:46:12 by hsirenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	push(t_stack *stack, t_coord coord)
 		new_data = ft_calloc(stack->cap * 2, sizeof(t_coord));
 		ft_memcpy(new_data, stack->data, stack->cap * sizeof(t_coord));
 		stack->cap *= 2;
+		free(stack->data);
 	}
 	stack->data[stack->len] = coord;
 	stack->len++;

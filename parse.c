@@ -6,7 +6,7 @@
 /*   By: hsirenko <hsirenko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 14:15:51 by kseniakarem       #+#    #+#             */
-/*   Updated: 2024/10/15 18:12:44 by hsirenko         ###   ########.fr       */
+/*   Updated: 2024/10/15 18:42:16 by hsirenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*read_file(int fd)
 		if (bytes_read < 0)
 		{
 			free(str.data);
-			panic("read call failed", NULL);
+			panic("read call failed");
 			return (NULL);
 		}
 		if (!bytes_read)
@@ -35,7 +35,7 @@ char	*read_file(int fd)
 		if (str.len == str.cap)
 			str = string_grow(str, str.cap * 2);
 	}
-	panic("unreachable file", NULL);
+	panic("unreachable file");
 }
 
 int	fill_map(t_game *game, char *src)
@@ -83,17 +83,17 @@ int	parse(t_game *game, int fd)
 	inp_string = read_file(fd);
 	if (!get_wall_img(game, &inp_string))
 	{
-		panic("could not parse image paths", NULL);
+		panic("could not parse image paths");
 		return (0);
 	}
 	if (!(get_colors(game, &inp_string) == 1))
 	{
-		panic("could not parse floor and ceiling colors", NULL);
+		panic("could not parse floor and ceiling colors");
 		return (0);
 	}
 	if (!(get_map(game, &inp_string)))
 	{
-		panic("could not get map or it's invalid", NULL);
+		panic("could not get map or it's invalid");
 		return (0);
 	}
 	return (1);
@@ -108,15 +108,15 @@ void	init_struct_game(t_game *game, char *file_name)
 	fd = open(file_name, O_RDONLY);
 	if (fd < 0)
 	{
-		panic("could not open file", NULL);
+		panic("could not open file");
 	}
 	status = parse(game, fd);
 	if (status == 0)
 	{
-		panic("failed to parse map", NULL);
+		panic("failed to parse map");
 	}
 	if (has_holes(game->mapdata, game->player))
 	{
-		panic("map has holes", NULL);
+		panic("map has holes");
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: hsirenko <hsirenko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 14:24:47 by kseniakarem       #+#    #+#             */
-/*   Updated: 2024/10/15 18:21:44 by hsirenko         ###   ########.fr       */
+/*   Updated: 2024/10/15 18:40:54 by hsirenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,12 @@ int	check_gamer(char gamer, int gamer_count)
 {
 	if (gamer_count != 1)
 	{
-		panic("insufficient amount of gamers", NULL);
+		panic("insufficient amount of gamers");
 		return (0);
 	}
 	if (!check(gamer, "NSWE"))
 	{
-		panic("insuffifient gamer", NULL);
+		panic("insuffifient gamer");
 		return (0);
 	}
 	return (1);

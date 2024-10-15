@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stack_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
+/*   By: hsirenko <hsirenko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 17:32:35 by kseniakarem       #+#    #+#             */
-/*   Updated: 2024/10/15 17:41:34 by kseniakarem      ###   ########.fr       */
+/*   Updated: 2024/10/15 18:40:12 by hsirenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ int	_has_holes(t_mapdata map, t_stack *stack, char *visited)
 	t_coord	neighbours[4];
 	t_coord	neighbour;
 
-	i = -1;
 	while (stack->len > 0)
 	{
 		pop(stack, &curr);
 		fill_neighbours_of(curr, neighbours);
+		i = -1;
 		while (++i < 4)
 		{
 			neighbour = neighbours[i];

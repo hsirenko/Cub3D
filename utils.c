@@ -6,7 +6,7 @@
 /*   By: hsirenko <hsirenko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 10:53:44 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/15 18:13:31 by hsirenko         ###   ########.fr       */
+/*   Updated: 2024/10/15 18:40:35 by hsirenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ char	*cut_string(char *string, int n)
 	return (part);
 }
 
-void	panic(char *msg, t_game *game)
+void	panic(char *msg)
 {
 	printf("Error: %s\n", msg);
-	ft_exit(game);
+	exit(0);
 }
