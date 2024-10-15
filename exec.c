@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
+/*   By: hsirenko <hsirenko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 18:26:21 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/14 19:04:37 by helensirenk      ###   ########.fr       */
+/*   Updated: 2024/10/15 15:40:20 by hsirenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ static void	get_angle(t_game *game)
 
 	x = (int)game->player.player_x;
 	y = (int)game->player.player_y;
+	printf("player_x = %f\n", game->player.player_x);
+	printf("player_y = %f\n", game->player.player_y);
 	direction = game->mapdata.map2d[y][x];
 	if (direction == 'N')
 		game->player.angle = 3 * M_PI / 2;
