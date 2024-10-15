@@ -2,7 +2,7 @@ DEFAULT_GOAL := all
 
 NAME = cub3D
 CFLAGS = -Wall -Werror -Wextra -g
-SRC = main.c parse.c raycasting.c utils.c render.c stack.c exec.c player_movements.c raycasting_inters.c raycasting_utils.c vector_utils.c parse_2.c parse_3.c parse_floor_ceiling.c parse_player.c parse_wall_paths.c render_2.c
+SRC = main.c parse.c raycasting.c utils.c render.c stack.c exec.c player_movements.c raycasting_inters.c raycasting_utils.c vector_utils.c parse_2.c parse_3.c parse_floor_ceiling.c parse_player.c parse_wall_paths.c render_2.c stack_2.c
 OBJ = $(SRC:.c=.o)
 HEADER = $(NAME).h
 INCLUDES += -Ilibft -Iminilibx

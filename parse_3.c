@@ -6,7 +6,7 @@
 /*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 16:28:04 by kseniakarem       #+#    #+#             */
-/*   Updated: 2024/10/15 16:28:16 by kseniakarem      ###   ########.fr       */
+/*   Updated: 2024/10/15 17:47:36 by kseniakarem      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,20 @@ int	parse_player(t_parser_state *s)
 
 void	parse_wall_or_player(t_parser_state *s, t_game *game)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
 	if (current_char(*s) == '1')
-		game->mapdata.map2d[i][j] = '1';
+		game->mapdata.map2d[s->i][s->j] = '1';
 	else
-		game->mapdata.map2d[i][j] = '0';
+		game->mapdata.map2d[s->i][s->j] = '0';
 	if (parse_player(s))
 	{
-		game->player.player_x = j + 0.5;
-		game->player.player_y = i + 0.5;
+		game->player.player_x = s->j + 0.5;
+		game->player.player_y = s->i + 0.5;
 	}
 	advance(s);
+}
+
+void	advance(t_parser_state *s)
+{
+	s->j++;
+	s->c++;
 }

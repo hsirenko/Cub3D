@@ -6,23 +6,11 @@
 /*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 10:53:44 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/15 16:38:08 by kseniakarem      ###   ########.fr       */
+/*   Updated: 2024/10/15 17:46:49 by kseniakarem      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-size_t	ft_strlen(const char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i] != '\0')
-	{
-		i++;
-	}
-	return (i);
-}
 
 int	unit_circle(float angle, char c)
 {
