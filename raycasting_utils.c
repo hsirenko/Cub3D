@@ -3,6 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: hsirenko <hsirenko@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/14 20:09:54 by helensirenk       #+#    #+#             */
+/*   Updated: 2024/10/15 17:27:36 by hsirenko         ###   ########.fr       */
 /*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 20:09:54 by helensirenk       #+#    #+#             */
@@ -27,12 +31,12 @@ t_vec2f	vec2f_mulf(t_vec2f v, float f)
 t_direction	detect_face(t_vec2f step)
 {
 	if (step.x == 1)
-		return (DIRECTION_WEST);
+		return (DIRECTION_NORTH);
 	if (step.x == -1)
-		return (DIRECTION_EAST);
-	if (step.y == 1)
 		return (DIRECTION_SOUTH);
-	return (DIRECTION_NORTH);
+	if (step.y == 1)
+		return (DIRECTION_WEST);
+	return (DIRECTION_EAST);
 }
 
 float	distance(t_vec2f a, t_vec2f b)
@@ -42,11 +46,13 @@ float	distance(t_vec2f a, t_vec2f b)
 
 float	get_local_x(t_vec2f point, t_direction face)
 {
-	if (face == DIRECTION_EAST)
-		return (ceil(point.y) - point.y);
-	if (face == DIRECTION_WEST)
-		return (point.y - floor(point.y));
 	if (face == DIRECTION_SOUTH)
+		return (ceil(point.y) - point.y);
+	if (face == DIRECTION_NORTH)
+		return (point.y - floor(point.y));
+	if (face == DIRECTION_WEST)
 		return (point.x - floor(point.x));
+	if (face == DIRECTION_EAST)
+		return (ceil(point.x) - point.x);
 	return (ceil(point.x) - point.x);
 }
