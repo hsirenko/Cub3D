@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_inters.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helensirenko <helensirenko@student.42.f    +#+  +:+       +#+        */
+/*   By: hsirenko <hsirenko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 19:41:28 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/14 20:09:12 by helensirenk      ###   ########.fr       */
+/*   Updated: 2024/10/15 18:38:28 by hsirenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ t_vec2f	hor_step(t_ray ray)
 {
 	t_vec2f	dir;
 
+	dir = unit_dir_vector(ray.angle);
 	if (dir.y == 0)
 		return (vec2f(dir.x, 0));
-	dir = unit_dir_vector(ray.angle);
 	dir.x /= fabs(dir.y);
-	dir.y /= fabs(dir.y);
+	dir = unit_dir_vector(ray.angle);
 	return (dir);
 }
 

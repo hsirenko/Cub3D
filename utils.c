@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
+/*   By: hsirenko <hsirenko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 10:53:44 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/15 17:46:49 by kseniakarem      ###   ########.fr       */
+/*   Updated: 2024/10/15 18:13:31 by hsirenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ char	*cut_string(char *string, int n)
 	return (part);
 }
 
-void	panic(char *msg)
+void	panic(char *msg, t_game *game)
 {
 	printf("Error: %s\n", msg);
+	ft_exit(game);
 }

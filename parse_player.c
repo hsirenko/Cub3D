@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_player.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
+/*   By: hsirenko <hsirenko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 14:24:47 by kseniakarem       #+#    #+#             */
-/*   Updated: 2024/10/15 14:26:00 by kseniakarem      ###   ########.fr       */
+/*   Updated: 2024/10/15 18:21:44 by hsirenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,12 @@ int	check_gamer(char gamer, int gamer_count)
 {
 	if (gamer_count != 1)
 	{
-		panic("insufficient amount of gamers");
+		panic("insufficient amount of gamers", NULL);
 		return (0);
 	}
 	if (!check(gamer, "NSWE"))
 	{
-		panic("insuffifient gamer");
+		panic("insuffifient gamer", NULL);
 		return (0);
 	}
 	return (1);
