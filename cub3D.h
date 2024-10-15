@@ -6,7 +6,7 @@
 /*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:05:28 by helensirenk       #+#    #+#             */
-/*   Updated: 2024/10/15 16:32:09 by kseniakarem      ###   ########.fr       */
+/*   Updated: 2024/10/15 17:35:31 by kseniakarem      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,6 +261,13 @@ void advance(t_parser_state* s);
 char current_char(t_parser_state s);
 int parse_player(t_parser_state* s);
 void parse_wall_or_player(t_parser_state* s, t_game* game);
+void fill_neighbours_of(t_coord curr, t_coord* neighbours);
+int _has_holes(t_mapdata map, t_stack* stack, char* visited);
+t_coord	new_coord(int x, int y);
+void	push(t_stack *stack, t_coord coord);
+t_stack	make_stack(int capacity);
+int	pop(t_stack *stack, t_coord *dst);
+
 
 
 //render

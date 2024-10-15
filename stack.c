@@ -6,7 +6,7 @@
 /*   By: kseniakaremina <kseniakaremina@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 19:19:13 by kseniakarem       #+#    #+#             */
-/*   Updated: 2024/10/15 16:39:32 by kseniakarem      ###   ########.fr       */
+/*   Updated: 2024/10/15 17:32:23 by kseniakarem      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,47 +58,15 @@ t_coord	new_coord(int x, int y)
 
 int	has_holes(t_mapdata map, t_player player)
 {
-	t_stack stack;
-	int found_holes;
-	char *visited;
-    t_coord curr;
-    t_coord neighbours[4];
-    t_coord neighbour;
+	t_stack	stack;
+	int		found_holes;
+	char	*visited;
 
 	stack = make_stack(1024);
-	found_holes = 0;
 	visited = calloc(map.map_h * map.map_w, sizeof(char));
 	push(&stack, new_coord(player.player_x, player.player_y));
-	while (stack.len > 0)
-	{
-		pop(&stack, &curr);
-		neighbours[0] = new_coord(curr.x - 1, curr.y);
-		neighbours[1] = new_coord(curr.x + 1, curr.y);
-		neighbours[2] = new_coord(curr.x, curr.y - 1);
-		neighbours[3] = new_coord(curr.x, curr.y + 1);
-
-		for (int i = 0; i < 4; i++)
-		{
-			t_coord neighbour = neighbours[i];
-			if (neighbour.x < 0 || neighbour.y < 0 || neighbour.x >= map.map_w
-				|| neighbour.y >= map.map_h)
-			{
-				printf("found hole at x=%d y=%d\n", neighbour.x, neighbour.y);
-				found_holes = 1;
-				break ;
-			}
-			if (map.map2d[neighbour.y][neighbour.x] == '0'
-				&& !visited[neighbour.y * map.map_w + neighbour.x])
-			{
-				visited[neighbour.y * map.map_w + neighbour.x] = 1;
-				push(&stack, neighbour);
-			}
-		}
-		if (found_holes)
-			break ;
-	}
+	found_holes = _has_holes(map, &stack, visited);
 	free(stack.data);
 	free(visited);
-
 	return (found_holes);
 }
